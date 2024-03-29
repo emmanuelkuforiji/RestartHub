@@ -44,10 +44,7 @@ style="position:relative; top:100px; color:white;">
 		</div>
 		<div class="form-field">
 			<div class="form-control justify-between">
-				<div class="flex gap-2" style="margin-left: 7px;">
-					<input type="checkbox" class="checkbox" />
-					<a href="#">Remember me</a>
-				</div>
+				
 				<label class="form-label">
 					<a class="link link-underline-hover link-success text-sm">Forgot your password?</a>
 				</label>
