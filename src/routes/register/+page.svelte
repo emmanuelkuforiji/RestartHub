@@ -8,23 +8,23 @@
         <div class="form-group">
             <div class="form-field">
                 <label>Email address</label>
-                <input bind:value={emailVar} placeholder="example@hotmail.com" type="email" class="input">
+                <input bind:value={emailVar} placeholder="example@hotmail.com" type="email" class="input max-w-full">
             </div>
             <div class="form-field">
                 <label>First Name</label>
-                <input bind:value={firstNameVar} placeholder="First Name" type="text" class="input">
+                <input bind:value={firstNameVar} placeholder="First Name" type="text" class="input max-w-full">
             </div>
             <div class="form-field">
                 <label>Surname</label>
-                <input bind:value={surnameVar} placeholder="Surname" type="text" class="input">
+                <input bind:value={surnameVar} placeholder="Surname" type="text" class="input max-w-full">
             </div>
             <div class="form-field">
                 <label>Password</label>
-                <input bind:value={passwordVar} placeholder="Type here" type="password" class="input">
+                <input bind:value={passwordVar} placeholder="Type here" type="password" class="input max-w-full">
             </div>
             <div class="form-field">
                 <label>Confirm Password</label>
-                <input bind:value={confirmPasswordVar} placeholder="Type here" type="password" class="input">
+                <input bind:value={confirmPasswordVar} placeholder="Type here" type="password" class="input max-w-full">
             </div>
             <div class="form-action">
                 <button on:click={register}>Sign Up</button>
@@ -50,8 +50,8 @@
     position: relative;
     top: 100px;
     color: white;
-    width: 100%;
-    max-width: 450px; 
+    width: 450px;
+    max-width: 89%; 
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -136,7 +136,7 @@
     let confirmPasswordVar = "";
 
     // Utility functions for input validation
-    
+
     // Validates email format
     function validateEmail(email) {
         return email.match(

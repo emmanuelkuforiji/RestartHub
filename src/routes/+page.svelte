@@ -18,19 +18,19 @@
         {/if}
 
         <div class="form-group">
-            <div class="form-field">
+            <div><br>
                 <label>Email address</label>
-                <input bind:value={emailVar} placeholder="example@hotmail.com" type="email" class="input">
+                <input bind:value={emailVar} placeholder="example@hotmail.com" type="email" class="input max-w-full">
             </div>
-            <div class="form-field">
+            <div><br>
                 <label>Password</label>
-                <input bind:value={passwordVar} placeholder="Type here" type="password" class="input">
+                <input id="passbox" bind:value={passwordVar} placeholder="Type here" type="password" class="input max-w-full">
             </div>
             <div class="forgot-password">
                 <a>Forgot your password?</a>
             </div>
             <div class="form-action">
-                <button on:click={login}>Sign in</button>
+                <button on:click={login} class="max-w-full">Sign in</button>
             </div>
             <div class="sign-up">
                 <a on:click={goToRegister} href="javascript:void(0);" class="sign-up-link">Don't have an account yet? Sign up.</a>
@@ -53,8 +53,8 @@
     position: relative;
     top: 100px;
     color: white;
-    width: 100%;
-    max-width: 450px; 
+    width: 450px;
+    max-width: 89%; 
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -77,13 +77,9 @@
     margin-left: 3px;
 }
 
-.form-field label {
-    color: white;
-    margin-left: 4px;
-}
-
 .input {
-    width: 96%;
+    position:relative;
+    width: 100%;
     margin-left: 7px;
 }
 
@@ -140,6 +136,14 @@
     // onMount lifecycle hook to check session on component mount
     onMount(() => {
        autoLogin(); // Attempt to auto-login the user
+        const textinput = document.getElementById("passbox");
+
+        textinput.addEventListener("keydown", (event)=> {
+            if(event.key == "Enter")
+            {
+                login();
+            }
+        });
     });
 
     // Auto-login function

@@ -1,16 +1,23 @@
 <div class="nav">
     <center>
+
+<a href="/dashboard">
 <img src = "home.svg"
      class = "image1">
+</a>
 
 <img src = "search.svg"
      class = "image2">
 
+<a href = "/forum">
 <img src = "forum.svg"
      class = "image3">
+</a>
 
-<img src = "profile.svg"
-     class = "image4">
+<a href="/profile">
+    <img src = "profile.svg"
+    class = "image4">
+</a>
 
 </center>
 
