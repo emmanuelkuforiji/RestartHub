@@ -1,93 +1,125 @@
-<div style="position:absolute; width:100%; height:100%; 
-background: rgb(63,94,251);
-background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);">
+<div id="background">
+    <div class="container">
+        <div class="header">
+            <h1>Sign In</h1>
+            <p>Sign in to access your account</p>
+        </div>
 
+        {#if isLoginFailed == true}
+        <div class="alert alert-error">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4C12.96 4 4 12.96 4 24C4 35.04 12.96 44 24 44C35.04 44 44 35.04 44 24C44 12.96 35.04 4 24 4ZM24 26C22.9 26 22 25.1 22 24V16C22 14.9 22.9 14 24 14C25.1 14 26 14.9 26 16V24C26 25.1 25.1 26 24 26ZM26 34H22V30H26V34Z" fill="#E92C2C" />
+            </svg>
+            <div>
+                <span>Error</span>
+                <span>Your username or password was not recognised.</span>
+            </div>
+        </div>
+        {/if}
 
-<div class="mx-auto flex w-full max-w-sm flex-col gap-6"
-style="position:relative; top:100px; color:white;">
-	<div class="flex flex-col items-center">
-		<h1 class="text-3xl font-semibold">Sign In</h1>
-		<p class="text-sm">Sign in to access your account</p>
-	</div>
-
-    <!--ALERT-->
-    {#if isLoginFailed == true}
-    <div class="alert alert-error" style="width:98%; margin-left:3px">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4C12.96 4 4 12.96 4 24C4 35.04 12.96 44 24 44C35.04 44 44 35.04 44 24C44 12.96 35.04 4 24 4ZM24 26C22.9 26 22 25.1 22 24V16C22 14.9 22.9 14 24 14C25.1 14 26 14.9 26 16V24C26 25.1 25.1 26 24 26ZM26 34H22V30H26V34Z" fill="#E92C2C" />
-        </svg>
-        <div class="flex flex-col">
-            <span style="color:black;">Error</span>
-            <span class="text-content2">Your username or password was not recognised.</span>
+        <div class="form-group">
+            <div class="form-field">
+                <label>Email address</label>
+                <input bind:value={emailVar} placeholder="example@hotmail.com" type="email" class="input">
+            </div>
+            <div class="form-field">
+                <label>Password</label>
+                <input bind:value={passwordVar} placeholder="Type here" type="password" class="input">
+            </div>
+            <div class="forgot-password">
+                <a>Forgot your password?</a>
+            </div>
+            <div class="form-action">
+                <button on:click={login}>Sign in</button>
+            </div>
+            <div class="sign-up">
+                <a on:click={goToRegister} href="javascript:void(0);" class="sign-up-link">Don't have an account yet? Sign up.</a>
+            </div>
         </div>
     </div>
-    {/if}
-
-	<div class="form-group">
-		<div class="form-field">
-			<label class="form-label" style="color:white;">Email address</label>
-
-			<input bind:value={emailVar} 
-            placeholder="example@hotmail.com" 
-            type="email" class="input max-w-full" 
-            style="max-width:96%; margin-left:7px;"/>
-			
-		</div>
-		<div class="form-field">
-			<label class="form-label" style="color:white;">Password</label>
-			<div class="form-control">
-				<input bind:value={passwordVar} 
-                placeholder="Type here" type="password" 
-                class="input max-w-full" 
-                style="max-width:96%; margin-left:7px;"/>
-			</div>
-		</div>
-		<div class="form-field">
-			<div class="form-control justify-between">
-				
-				<label class="form-label">
-					<a class="link link-underline-hover link-success text-sm">Forgot your password?</a>
-				</label>
-			</div>
-		</div>
-		<div class="form-field pt-5">
-			<div class="form-control justify-between">
-				<button 
-                on:click={login} 
-                class="btn btn-primary w-full"
-                style="max-width:96%; margin-left:7px;">Sign in</button>
-			</div>
-		</div>
-
-		<div class="form-field">
-			<div class="form-control justify-center">
-				<a class="link link-underline-hover link-success text-sm">Don't have an account yet? Sign up.</a>
-			</div>
-		</div>
-	</div>
-</div>
-
-
 </div>
 
 <style>
- .outfitfont{
-  font-family: "Outfit", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgb(63,94,251);
+    background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 }
 
-.mainH
-{
-    position:relative;
-    font-size: 38px;
+.container {
+    position: relative;
+    top: 100px;
     color: white;
-    left:50%;
-    transform: translateX(-50%);
-    top:80px;
-    width:100px;
+    width: 100%;
+    max-width: 450px; 
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
+
+.header h1 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.header p {
+    text-align: center;
+    font-size: 1rem;
+}
+
+.alert {
+    width: 98%;
+    margin-left: 3px;
+}
+
+.form-field label {
+    color: white;
+    margin-left: 4px;
+}
+
+.input {
+    width: 96%;
+    margin-left: 7px;
+}
+
+.forgot-password, .sign-up {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.form-action button {
+    width: 96%;
+    margin-left: 7px;
+    background-color: #007bff; 
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.form-action button:hover {
+    background-color: #0056b3; 
+}
+
+.sign-up-link {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 5px; 
+    transition: background-color 0.3s, color 0.3s; 
+    background-color: transparent; 
+}
+
+.sign-up-link:hover {
+    background-color: #0056b3; 
+    text-decoration: underline; 
+}
+
 </style>
 
 <script>
@@ -156,19 +188,10 @@ style="position:relative; top:100px; color:white;">
             isLoginFailed = true;
         }
 
-        /*
-        for(let i =0; i < getUsers.data.length; i++)
-        {
-            if(getUsers.data[i].email == email
-            && getUsers.data[i].password == password)
-            {
-                alert("login successful!");
-            } else
-            {
-                alert("login failed!");
-            }
-        }
-        */
+    }
+
+    function goToRegister() {
+        goto('/register'); // Navigate to the register page
     }
 
     let emailVar = "";
