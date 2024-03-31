@@ -121,68 +121,35 @@
 </style>
 
 <script>
-    import { createClient } from "@supabase/supabase-js";
-    import { goto } from "$app/navigation";
-  
+    // Import functions from external libraries
+    import { createClient } from "@supabase/supabase-js"; // Imports createClient from supabase to interact with Supabase database
+    import { goto } from "$app/navigation"; // Imports goto from svelte navigation for programmatic navigation
+
+    // Initialise and setup Supabase client
     const supabase = createClient("https://tkkcqbnwdharnagmhten.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRra2NxYm53ZGhhcm5hZ21odGVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTEzOTk2MDMsImV4cCI6MjAyNjk3NTYwM30.VyF3VVorlbPus_GBz8YXK4c-xQ3jInSyxiNSTndDTpg");
+
+    // Declare reactive variables for form inputs
     let emailVar = "";
     let firstNameVar = "";
     let surnameVar = "";
     let passwordVar = "";
     let confirmPasswordVar = "";
 
-    function validateName(name) {
-    return /^[A-Za-z]+$/.test(name);
-    }
-
-    async function register() {
-        // Field validation
-        if (!emailVar || !firstNameVar || !surnameVar || !passwordVar || !confirmPasswordVar) {
-            alert("All fields must be filled out.");
-            return;
-        }
-
-        // Email validation
-        if (!validateEmail(emailVar)) {
-            alert("Please enter a valid email address.");
-            return;
-        }
-
-        // Password validation
-        if (passwordVar !== confirmPasswordVar) {
-            alert("Passwords do not match!");
-            return;
-        } else if (!validatePassword(passwordVar)) {
-            alert("Password must be at least 10 characters long and contain at least one letter, one number, and one special character.");
-            return;
-        }
-
-        // Name validation
-        if (!validateName(firstNameVar) || !validateName(surnameVar)) {
-        alert("First name and surname must contain letters only.");
-        return;
-        }
-
-        const { data, error } = await supabase
-            .from("users")
-            .insert([
-                { email: emailVar, FirstName: firstNameVar, LastName: surnameVar, password: passwordVar },
-            ]);
-
-        if (error) {
-            alert("Registration error: " + error.message);
-        } else {
-            alert("You have successfully registered");
-            goto("/"); // Redirect to the sign-in page
-        }
-    }
-
+    // Utility functions for input validation
+    
+    // Validates email format
     function validateEmail(email) {
         return email.match(
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
     }
 
+    // Validates name to ensure it contains letters only
+    function validateName(name) {
+        return /^[A-Za-z]+$/.test(name);
+    }
+
+    // Validates password for minimum length, inclusion of letters, numbers, and special characters
     function validatePassword(password) {
         const hasLetter = /[a-zA-Z]/.test(password);
         const hasNumber = /\d/.test(password);
@@ -191,7 +158,53 @@
         return hasLetter && hasNumber && hasSpecial && isLongEnough;
     }
 
+    // The main function to handle user registration
+    async function register() {
+        // Check if all fields are filled
+        if (!emailVar || !firstNameVar || !surnameVar || !passwordVar || !confirmPasswordVar) {
+            alert("All fields must be filled out.");
+            return;
+        }
+
+        // Perform input validations
+        if (!validateEmail(emailVar)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        if (!validateName(firstNameVar) || !validateName(surnameVar)) {
+            alert("First name and surname must contain letters only.");
+            return;
+        }
+
+        if (passwordVar !== confirmPasswordVar) {
+            alert("Passwords do not match!");
+            return;
+        }
+
+        if (!validatePassword(passwordVar)) {
+            alert("Password must be at least 10 characters long and contain at least one letter, one number, and one special character.");
+            return;
+        }
+
+        // Insert new user data into the database
+        const { data, error } = await supabase
+            .from("users")
+            .insert([
+                { email: emailVar, FirstName: firstNameVar, LastName: surnameVar, password: passwordVar },
+            ]);
+
+        // Handle response
+        if (error) {
+            alert("Registration error: " + error.message);
+        } else {
+            alert("You have successfully registered");
+            goToSignIn(); // Redirect to the sign-in page upon successful registration
+        }
+    }
+
+    // Navigation function to redirect user to the sign-in page
     function goToSignIn() {
-        goto("/"); // Navigate to sign-in page
+        goto("/"); 
     }
 </script>

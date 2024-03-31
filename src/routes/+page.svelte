@@ -123,77 +123,80 @@
 </style>
 
 <script>
-    import {createClient} from "@supabase/supabase-js";
-    import { goto } from "$app/navigation";
-    import { onMount } from "svelte";
+    // Import necessary functions and modules
+    import { createClient } from "@supabase/supabase-js"; // Imports Supabase client for database interaction
+    import { goto } from "$app/navigation"; // Imports goto for navigation within Svelte app
+    import { onMount } from "svelte"; // Imports onMount to run code when the component mounts
   
-
-    const supabase = createClient("https://tkkcqbnwdharnagmhten.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRra2NxYm53ZGhhcm5hZ21odGVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTEzOTk2MDMsImV4cCI6MjAyNjk3NTYwM30.VyF3VVorlbPus_GBz8YXK4c-xQ3jInSyxiNSTndDTpg")
-    let isLoginFailed = false;
-
-
-    onMount(()=>
-    {
-       autoLogin();
-    }
+    // Initialize the Supabase client
+    const supabase = createClient(
+        "https://tkkcqbnwdharnagmhten.supabase.co", 
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRra2NxYm53ZGhhcm5hZ21odGVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTEzOTk2MDMsImV4cCI6MjAyNjk3NTYwM30.VyF3VVorlbPus_GBz8YXK4c-xQ3jInSyxiNSTndDTpg"
     );
 
-    async function autoLogin()
-    {
-        if(localStorage.getItem("token")
-        && localStorage.getItem("email"))
-        {
-            let checkDetails = await supabase
-            .from("users")
-            .select()
-            .match({email:localStorage.getItem("email"), 
-            sessionToken: localStorage.getItem("token")})
+    // Variable to track if login has failed
+    let isLoginFailed = false;
 
-            if(checkDetails.data.length > 0)
-            {
+    // onMount lifecycle hook to check session on component mount
+    onMount(() => {
+       autoLogin(); // Attempt to auto-login the user
+    });
+
+    // Auto-login function
+    async function autoLogin() {
+        // Check if token and email are stored in localStorage
+        if(localStorage.getItem("token") && localStorage.getItem("email")) {
+            // Attempt to fetch user details from Supabase to validate session
+            let checkDetails = await supabase
+                .from("users")
+                .select()
+                .match({email: localStorage.getItem("email"), sessionToken: localStorage.getItem("token")});
+
+            // If user details are found, navigate to the dashboard
+            if(checkDetails.data.length > 0) {
                 goto("/dashboard");
             }
         }
     }
 
-    async function login()
-    {
-        //async means asynchrous, it just means it will run
-        //in a separate memory threat rather than blocking
-        //the memory/current threat
+    // Function to handle user login
+    async function login() {
+        // Fetch users from Supabase that match the entered email and password
         let getUsers = await supabase
-        .from("users")
-        .select()
-        .match({email: emailVar, password: passwordVar})
-
-        if(getUsers.data.length > 0)
-        {
-            let randomChar = ["DBHS", "EW-D", "Q@&D", "#.EQ"];
-            //generate random token
-            let token = Math.floor(Math.random() * 900000000) + 100000000
-            console.log();
-
-            let setToken = await supabase
             .from("users")
-            .update({sessionToken: token.toString() + randomChar[Math.floor(Math.random() * 4)]})
-            .match({email: emailVar})
+            .select()
+            .match({email: emailVar, password: passwordVar});
 
-            localStorage.setItem("token", token.toString() + randomChar[Math.floor(Math.random() * 4)])
+        // If matching user is found
+        if(getUsers.data.length > 0) {
+            // Generate a random session token
+            let randomChar = ["DBHS", "EW-D", "Q@&D", "#.EQ"];
+            let token = Math.floor(Math.random() * 900000000) + 100000000;
+
+            // Update user's session token in Supabase
+            let setToken = await supabase
+                .from("users")
+                .update({sessionToken: token.toString() + randomChar[Math.floor(Math.random() * 4)]})
+                .match({email: emailVar});
+
+            // Store the new session token and email in localStorage
+            localStorage.setItem("token", token.toString() + randomChar[Math.floor(Math.random() * 4)]);
             localStorage.setItem("email", emailVar);
             
+            // Navigate to the dashboard
             goto("/dashboard");
-
-        } else
-        {
+        } else {
+            // If no matching user is found, indicate login failure
             isLoginFailed = true;
         }
-
     }
 
+    // Function to navigate to the registration page
     function goToRegister() {
-        goto('/register'); // Navigate to the register page
+        goto('/register'); 
     }
 
+    // Variables for form inputs
     let emailVar = "";
     let passwordVar = "";
 </script>
