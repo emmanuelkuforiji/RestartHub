@@ -147,7 +147,6 @@ async function fetchPosts()
     for(let i = 0; i < getPosts.data.length; i++)
     {
         posts.push(
-            
         {
             "header": getPosts.data[i].heading,
             "content": getPosts.data[i].content,
