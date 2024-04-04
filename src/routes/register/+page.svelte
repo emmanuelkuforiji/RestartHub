@@ -11,6 +11,10 @@
                 <input bind:value={emailVar} placeholder="example@hotmail.com" type="email" class="input max-w-full">
             </div>
             <div class="form-field">
+                <label>Username</label>
+                <input bind:value={usernameVar} placeholder="Username" type="text" class="input max-w-full">
+            </div>
+            <div class="form-field">
                 <label>First Name</label>
                 <input bind:value={firstNameVar} placeholder="First Name" type="text" class="input max-w-full">
             </div>
@@ -48,7 +52,7 @@
 
 .container {
     position: relative;
-    top: 100px;
+    top: 30px;
     color: white;
     width: 450px;
     max-width: 89%; 
@@ -130,6 +134,7 @@
 
     // Declare reactive variables for form inputs
     let emailVar = "";
+    let usernameVar = "";
     let firstNameVar = "";
     let surnameVar = "";
     let passwordVar = "";
@@ -187,11 +192,23 @@
             return;
         }
 
+        // Check if the username is already taken
+        const { data: userData, error: userError } = await supabase
+            .from("users")
+            .select("username")
+            .eq("username", usernameVar)
+            .single();
+
+        if (userData) {
+            alert("The username is already taken. Please choose another one.");
+            return;
+        }
+
         // Insert new user data into the database
         const { data, error } = await supabase
             .from("users")
             .insert([
-                { email: emailVar, FirstName: firstNameVar, LastName: surnameVar, password: passwordVar },
+                { email: emailVar, username: usernameVar, FirstName: firstNameVar, LastName: surnameVar, password: passwordVar },
             ]);
 
         // Handle response

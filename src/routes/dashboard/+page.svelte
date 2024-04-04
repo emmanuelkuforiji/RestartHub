@@ -25,11 +25,11 @@
 </div>
  
 <div class="tile5">
-    <p class="tile5Header">General Health Information
+    <a href="/general_health_information" class="tile5Header" >General Health Information
         <img 
         src="health.svg"
         class="tile5Image">
-    </p>
+    </a>
     
     <p class="tile5subHeading">General tips and information about maintaing good health.</p>
    
