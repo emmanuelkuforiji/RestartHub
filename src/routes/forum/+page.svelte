@@ -4,56 +4,95 @@
 
 
 
-<div style="position:relative; width:400px; max-width:90%; left:50%; 
-transform:translateX(-50%);">
+<div id="post-container">
+    <input class="input input-solid max-w-full post-input" placeholder="Heading" bind:value={headingString}>
 
-<input class="input input-solid max-w-full" placeholder="Heading" 
-style="position:relative;  
-    margin-top:20px;" bind:value={headingString}/>
+    <textarea class="textarea textarea-solid max-w-full post-textarea" placeholder="Say something..." rows="3" id="message" bind:value={contentString}></textarea>
 
-    <textarea class="textarea textarea-solid max-w-full" placeholder="Say something..." 
-    rows="3" id="message" style="position:relative;  
-    margin-top:20px;" bind:value={contentString}></textarea>
-
-    <button class="btn btn-primary" on:click={submitPost}>Post</button>
-
+    <button class="btn btn-primary post-btn" on:click={submitPost}>Post</button>
 </div>
 <br>
 
 {#if showPosts}
 {#each posts as obj}
-<div style="border: color: black; border-width:5px; width: 400px; max-width:90%;
-position:relative; left:50%; transform:translateX(-50%); margin-top:10px; 
-border-radius:15px; padding: 10px 10px 10px 10px">
-
-<p style="font-size:24px;"><b>{obj.header}</b></p>
-<br>
-<p style="font-size:16px;">{obj.content}</p>
-<br>
-<p style="font-size:16px;">{obj.date}</p>
-<br>
-<p style="font-size:16px;">Post by {obj.username}</p>
-
-</div>
+    <div class="post">
+        <p class="post-header"><b>{obj.header}</b>
+            {#if username == obj.username}
+        <span style="cursor:pointer; position:relative; float:right; font-size:18px;"
+        on:click={function(){deletePost(obj.uniqueID)}}>
+            <img src = "delete.svg" style="width:32px; height:32px;"></span>
+        {/if}
+    </p>
+        <br>
+        <p class="post-content">{obj.content}</p>
+        <br>
+        <p class="post-date">{obj.date}</p>
+        <br>
+        <p class="post-username">Post by {obj.username}</p>
+        <p style="display: inline-block;">
+            <img src = "heart.svg" on:click={function(){likePost(obj.uniqueID, obj.likes)}}
+            style="cursor:pointer; display:inline-block; width:32px; 
+            height:32px;">
+            {obj.likes} </p>
+        <p style="display: inline-block;">
+            <img src="comments.svg"  style="display:inline-block; width:32px; height:32px;">
+            {obj.comments}</p>
+    </div>
 {/each}
 {/if}
 <br><br><br><br><br>
 
-
 {#if ispostSuccessful == true}
-<div class="alert alert-success" style="position:absolute; 
-width:300px; top:10px; right:10px;">
+<div class="alert alert-success">
 	<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path fill-rule="evenodd" clip-rule="evenodd" d="M24 4C12.96 4 4 12.96 4 24C4 35.04 12.96 44 24 44C35.04 44 44 35.04 44 24C44 12.96 35.04 4 24 4ZM18.58 32.58L11.4 25.4C10.62 24.62 10.62 23.36 11.4 22.58C12.18 21.8 13.44 21.8 14.22 22.58L20 28.34L33.76 14.58C34.54 13.8 35.8 13.8 36.58 14.58C37.36 15.36 37.36 16.62 36.58 17.4L21.4 32.58C20.64 33.36 19.36 33.36 18.58 32.58Z" fill="#00BA34" />
 	</svg>
 	<div class="flex flex-col">
-		<span>Success</span>
-		<span class="text-content2">Your post was submitted successfully!</span>
+		<span>Posted</span>
+		<span class="text-content2">You submitted your post successfully.</span>
 	</div>
 </div>
 {/if}
 
 <BottomBar />
+
+<style>
+    #post-container {
+        position: relative;
+        width: 400px;
+        max-width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .post-input, .post-textarea {
+        position: relative;
+        margin-top: 20px;
+    }
+    
+    .post {
+        border: 5px solid black;
+        width: 400px;
+        max-width: 90%;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 10px;
+        border-radius: 15px;
+        padding: 10px;
+    }
+    
+    .post-header {
+        font-size: 24px;
+    }
+    
+    .post-content, .post-date, .post-username {
+        font-size: 16px;
+    }
+    
+    </style>
+    
+
 <script>
     import BottomBar from "$lib/BottomBar.svelte"
     import { onMount } from "svelte";
@@ -65,6 +104,7 @@ width:300px; top:10px; right:10px;">
   
     let username;
     let fname;
+    let userID;
     let headingString;
     let contentString;
     let ispostSuccessful = false;
@@ -99,6 +139,7 @@ width:300px; top:10px; right:10px;">
 
                 fname = getFirstName.data[0].FirstName;
                 username = getFirstName.data[0].username;
+                userID = getFirstName.data[0].id;
               
                 fetchPosts();
 
@@ -148,6 +189,7 @@ async function fetchPosts()
     {
         posts.push(
         {
+            "uniqueID": getPosts.data[i].id,
             "header": getPosts.data[i].heading,
             "content": getPosts.data[i].content,
             "username": getPosts.data[i].user,
@@ -161,4 +203,69 @@ async function fetchPosts()
     showPosts = true; 
 
 }
+
+async function deletePost(uniqueID)
+{
+    
+    let deletePost = await supabase
+    .from("forum")
+    .delete()
+    .match({id: uniqueID})
+
+    posts = [];
+    showPosts = false;
+    fetchPosts();
+    
+}
+
+async function likePost(uniqueID, currentLikes)
+{
+    let getLikes = await supabase
+    .from("likes")
+    .select()
+    .match({postID: uniqueID, userLiked: userID})
+
+    if(getLikes.data.length > 0)
+    {
+        currentLikes = parseInt(currentLikes)
+        currentLikes--;
+
+        let likePost = await supabase
+        .from("forum")
+        .update({likeCounter: currentLikes})
+        .match({id: uniqueID})
+
+        let updateLikes = await supabase
+        .from("likes")
+        .delete()
+        .match({postID: uniqueID, userLiked: userID})
+
+        posts = [];
+        showPosts = false;
+        fetchPosts();
+
+    } else
+    {
+        currentLikes = parseInt(currentLikes)
+        currentLikes++;
+
+        let likePost = await supabase
+        .from("forum")
+        .update({likeCounter: currentLikes})
+        .match({id: uniqueID})
+
+        let updateLikes = await supabase
+        .from("likes")
+        .insert({postID: uniqueID, userLiked: userID})
+
+        posts = [];
+        showPosts = false;
+        fetchPosts();
+    }
+
+
+    
+    
+}
+
     </script>
