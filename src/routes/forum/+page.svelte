@@ -1,8 +1,34 @@
-<!--FIX DATE AND ENABLE LIKE AND COMMENT COUNTER-->
+<!--STYLE COMMENTS-->
+<!--DELETE COMMENTS-->
+<!--FIX DATE-->
 <!--ALLOW LIKING AND COMMENTING AND VIEW COMMENTS-->
 <!--MODERATOR CAPABILITY-->
 
+{#if showModal}
+<div style="position:fixed; width:100%; height:100%; background-color:rgba(29, 51, 64, 0.9);
+ z-index:1">
+    <div style="position:fixed; top:100px; left:50%; transform:translateX(-50%); 
+    width:400px; max-width:96%; height:400px; border: 5px solid black; background-color:white;">
+    <img src = "close.svg"
+                style="cursor:pointer; display:inline-block; width:32px; 
+                height:32px; float:right;" on:click={function(){showModal = false; posts = []; showPosts = false; fetchPosts();}}>
+    <div style="position:relative; width:100%; height:200px; overflow-y:scroll; word-wrap: break-word; ">
+        {#if showComments}
+        {#each commentsArray as obj}
+        {obj.content}<br><br>
+        {/each}
+        {/if}
 
+    </div>
+            <span style="position:absolute; width:300px; left:50%; 
+            transform:translateX(-50%); bottom:5px;">
+                <input bind:value={commentContent} class="input input-primary" placeholder="Comment..." style="width: 200px;"/>
+                <button class="btn btn-primary" 
+                on:click={function(){postComment(currentlySelectedPost, curentpostComments)}}>Submit</button>
+            </span>
+    </div>
+</div>
+{/if}
 
 <div id="post-container">
     <input class="input input-solid max-w-full post-input" placeholder="Heading" bind:value={headingString}>
@@ -35,7 +61,8 @@
             height:32px;">
             {obj.likes} </p>
         <p style="display: inline-block;">
-            <img src="comments.svg"  style="display:inline-block; width:32px; height:32px;">
+            <img src="comments.svg"  style="cursor:pointer; display:inline-block; width:32px; height:32px;"
+            on:click={function(){curentpostComments = obj.comments; currentlySelectedPost = obj.uniqueID; showModal = true; fetchComments(obj.uniqueID)}}>
             {obj.comments}</p>
     </div>
 {/each}
@@ -43,13 +70,14 @@
 <br><br><br><br><br>
 
 {#if ispostSuccessful == true}
-<div class="alert alert-success">
+<div class="alert alert-success" style="position:absolute; 
+width:300px; top:10px; right:10px;">
 	<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path fill-rule="evenodd" clip-rule="evenodd" d="M24 4C12.96 4 4 12.96 4 24C4 35.04 12.96 44 24 44C35.04 44 44 35.04 44 24C44 12.96 35.04 4 24 4ZM18.58 32.58L11.4 25.4C10.62 24.62 10.62 23.36 11.4 22.58C12.18 21.8 13.44 21.8 14.22 22.58L20 28.34L33.76 14.58C34.54 13.8 35.8 13.8 36.58 14.58C37.36 15.36 37.36 16.62 36.58 17.4L21.4 32.58C20.64 33.36 19.36 33.36 18.58 32.58Z" fill="#00BA34" />
 	</svg>
 	<div class="flex flex-col">
-		<span>Posted</span>
-		<span class="text-content2">You submitted your post successfully.</span>
+		<span>Success</span>
+		<span class="text-content2">Your post was submitted successfully!</span>
 	</div>
 </div>
 {/if}
@@ -110,6 +138,11 @@
     let ispostSuccessful = false;
     let posts = [];
     let showPosts = false;
+    let showComments = false;
+    let currentlySelectedPost;
+    let commentContent = "";
+    let curentpostComments = "";
+    let showModal = false;
 
     onMount(()=>
     {
@@ -262,10 +295,56 @@ async function likePost(uniqueID, currentLikes)
         showPosts = false;
         fetchPosts();
     }
+    
+}
+
+async function postComment(UID, commentAmount)
+{
+    commentAmount++;
+    let updateCounter = await supabase
+    .from("forum")
+    .update({commentsCounter: commentAmount})
+    .match({id: UID})
 
 
+    let insertComment = await supabase
+    .from("comments")
+    .insert({postID: UID, userID: userID, content: commentContent})
+    commentContent = "";
     
-    
+
+    commentsArray = [];
+    showComments = false;
+    fetchComments(currentlySelectedPost);
+
+}
+
+let commentsArray = [];
+
+async function fetchComments(UID)
+{
+
+    let getComments = await supabase
+    .from("comments")
+    .select()
+    .match({postID: UID})
+    .order('created_at', {ascending: true})
+
+   
+
+    for(let i = 0; i < getComments.data.length; i++)
+    {
+        commentsArray.push(
+        {
+            "content": getComments.data[i].content,
+            "userID": getComments.data[i].user,
+            "created_at": getComments.data[i].likeCounter,
+        });
+
+    }
+
+
+    showComments = true;
 }
 
     </script>
