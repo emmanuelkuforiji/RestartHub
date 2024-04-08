@@ -1,8 +1,12 @@
-<!--STYLE COMMENTS-->
-<!--DELETE COMMENTS-->
-<!--FIX DATE-->
-<!--ALLOW LIKING AND COMMENTING AND VIEW COMMENTS-->
-<!--MODERATOR CAPABILITY-->
+<!--tidy up bottom bar-->
+<!--delete search icon-->
+<!--fix bottom bar on mobile-->
+
+<!--log out-->
+<!--fix sign in button-->
+<!--mentorship-->
+<!--job listings-->
+
 
 {#if showModal}
 <div style="position:fixed; width:100%; height:100%; background-color:rgba(29, 51, 64, 0.9);
@@ -12,19 +16,36 @@
     <img src = "close.svg"
                 style="cursor:pointer; display:inline-block; width:32px; 
                 height:32px; float:right;" on:click={function(){showModal = false; posts = []; showPosts = false; fetchPosts();}}>
-    <div style="position:relative; width:100%; height:200px; overflow-y:scroll; word-wrap: break-word; ">
+    <div style="position:relative; width:100%; 
+    height:300px; overflow-y:scroll; word-wrap: break-word; ">
+
         {#if showComments}
         {#each commentsArray as obj}
-        {obj.content}<br><br>
+
+        {#if username == obj.username}
+        <span style="z-index:2; cursor:pointer; position:relative; float:right; right:35px; font-size:18px;"
+        on:click={function(){deleteComment(obj.uniqueID, obj.postID)}}>
+            <img src = "delete.svg" style="width:32px; height:32px;"></span>
+        {/if}
+
+        <div style="position: relative; width:320px; left:50%; transform:translateX(-50%); 
+                    border-color:#cccaca; border-width:1px; margin-bottom:8px; border-radius:8px;
+                    padding:5px 40px 5px 5px; text-align:justify; z-index:1">
+        {obj.content}
+        <br>
+        <p style="font-size:12px" ><b>by {obj.username}</b></p>
+        <p style="font-size:12px" ><b>on {obj.date}</b></p>
+        </div>
+
         {/each}
         {/if}
 
     </div>
             <span style="position:absolute; width:300px; left:50%; 
             transform:translateX(-50%); bottom:5px;">
-                <input bind:value={commentContent} class="input input-primary" placeholder="Comment..." style="width: 200px;"/>
+                <input bind:value={commentContent} class="input" placeholder="Comment..." style="width: 200px;"/>
                 <button class="btn btn-primary" 
-                on:click={function(){postComment(currentlySelectedPost, curentpostComments)}}>Submit</button>
+                on:click={function(){postComment(currentlySelectedPost)}}>Submit</button>
             </span>
     </div>
 </div>
@@ -53,7 +74,6 @@
         <p class="post-content">{obj.content}</p>
         <br>
         <p class="post-date">{obj.date}</p>
-        <br>
         <p class="post-username">Post by {obj.username}</p>
         <p style="display: inline-block;">
             <img src = "heart.svg" on:click={function(){likePost(obj.uniqueID, obj.likes)}}
@@ -114,11 +134,16 @@ width:300px; top:10px; right:10px;">
         font-size: 24px;
     }
     
-    .post-content, .post-date, .post-username {
+    .post-content {
         font-size: 16px;
     }
     
-    </style>
+    .post-date, .post-username {
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+</style>
     
 
 <script>
@@ -228,7 +253,7 @@ async function fetchPosts()
             "username": getPosts.data[i].user,
             "likes": getPosts.data[i].likeCounter,
             "comments": getPosts.data[i].commentsCounter,
-            "date": getPosts.data[i].created_at
+            "date": dateTimeLocaliser(getPosts.data[i].created_at)
         });
 
     }
@@ -298,12 +323,22 @@ async function likePost(uniqueID, currentLikes)
     
 }
 
-async function postComment(UID, commentAmount)
+async function postComment(UID)
 {
-    commentAmount++;
+    posts = [];
+    
+    let getPostsCounter = await supabase
+    .from("forum")
+    .select()
+    .match({id: UID})
+
+    let postCounter = getPostsCounter.data[0].commentsCounter
+
+    postCounter++;
+
     let updateCounter = await supabase
     .from("forum")
-    .update({commentsCounter: commentAmount})
+    .update({commentsCounter: postCounter})
     .match({id: UID})
 
 
@@ -317,6 +352,10 @@ async function postComment(UID, commentAmount)
     showComments = false;
     fetchComments(currentlySelectedPost);
 
+    
+    showPosts = false;
+    fetchPosts();
+
 }
 
 let commentsArray = [];
@@ -328,23 +367,81 @@ async function fetchComments(UID)
     .from("comments")
     .select()
     .match({postID: UID})
-    .order('created_at', {ascending: true})
-
-   
+    .order('created_at', {ascending: false})
 
     for(let i = 0; i < getComments.data.length; i++)
     {
+        let getUsername = await supabase
+        .from("users")
+        .select()
+        .match({id: getComments.data[i].userID})
+
         commentsArray.push(
         {
+            "postID": getComments.data[i].postID,
+            "uniqueID": getComments.data[i].id,
             "content": getComments.data[i].content,
-            "userID": getComments.data[i].user,
-            "created_at": getComments.data[i].likeCounter,
+            "username": getUsername.data[0].username,
+            "date": dateTimeLocaliser(getComments.data[i].created_at)
         });
 
     }
 
 
     showComments = true;
+}
+
+
+async function deleteComment(uniqueID, postID)
+{
+    posts = [];
+    let getPostsCounter = await supabase
+    .from("forum")
+    .select()
+    .match({id: postID})
+
+    let postCounter = getPostsCounter.data[0].commentsCounter
+
+    postCounter--;
+
+    let updatePostsCounter = await supabase
+    .from("forum")
+    .update({commentsCounter: postCounter})
+    .match({id:postID})
+
+    let deletePost = await supabase
+    .from("comments")
+    .delete()
+    .match({id: uniqueID})
+
+    commentsArray = [];
+    showComments = false;
+    fetchComments(currentlySelectedPost);
+
+   
+    showPosts = false;
+    fetchPosts();
+    
+}
+
+
+function dateTimeLocaliser(date)
+{
+    const timestamp = new Date(date);
+
+    const options = {
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    day: '2-digit',
+    month: '2-digit',
+    year: '2-digit'
+    };
+
+    const localTimeString = timestamp.toLocaleString(undefined, options);
+
+    return localTimeString; // Output in HH:MM:SS DD-MM-YY format in the local timezone
 }
 
     </script>
