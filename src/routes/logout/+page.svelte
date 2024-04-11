@@ -1,9 +1,48 @@
-<h1>General Health Information</h1>
-<br>
-<h2>Staying Fit</h2>
-<br>
-<p></p>
+<div id="background">
+<h1 class="header"><b>Are You sure you want to logout?</b></h1>
+<div class="button-container">
+    <button on:click={loggingOut} class="btn btn-success">Yes</button>
+    <button on:click={loggedIn} class="btn btn-error">No</button>
+</div>
+<footer></footer>
+</div>
 
+<style>
+#background{
+    background: rgb(63,94,251);
+    background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    margin: 0; 
+}
+.header {
+  font-size: 50px;
+  text-align: center; 
+  margin-top: -200px;
+  margin-right: 20px;
+  color: white;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; 
+  width: 100%;
+}
+
+.btn {
+  padding: 25px 25px;
+  margin: 20px; 
+  cursor: pointer; 
+  font-size: 40px;
+}
+
+
+
+  </style>
+  
 <BottomBar />
 <script>
     import BottomBar from "$lib/BottomBar.svelte"
@@ -53,4 +92,25 @@
             goto("/")
         }
     }
+
+    async function loggingOut() {
+
+        // Clear local storage or cookies that store session information
+        localStorage.removeItem("token");
+        localStorage.removeItem("email");
+
+        // Call Supabase logout function to invalidate the session on the server side
+        await supabase.auth.signOut();
+
+        // Redirect the user to the login page
+        goto('/');
+    }
+
+
+    function loggedIn() {
+        // Redirect the user to the dashboard
+        goto('/dashboard');
+    }
+
+
     </script>

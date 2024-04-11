@@ -25,11 +25,11 @@
 </div>
  
 <div class="tile5">
-    <a href="/general_health_information" class="tile5Header" >General Health Information
+    <p class="tile5Header" >General Health Information
         <img 
         src="health.svg"
         class="tile5Image">
-    </a>
+    </p>
     
     <p class="tile5subHeading">General tips and information about maintaing good health.</p>
    
@@ -58,83 +58,6 @@
     width: 90%;
     font-size: 24px;
     font-weight: bold;
-}
-
-.tile1
-{
-    position:relative;
-    left:50%;
-    transform: translateX(-50%);
-    width: 90%;
-    height: 120px;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 0%, rgba(9,9,121,1) 92%);
-    border-radius: 20px;
-}
-
-.tileHeader
-{
-    font-size: 24px;
-    padding-left: 30px;
-    padding-top: 18px;
-    color:white;
-}
-
-.tilesubHeading
-{
-    font-size: 14px;
-    padding-left: 30px;
-    margin-top: 10px;
-    color:white;
-}
-
-.tileImage
-{
-    display:inline-block; 
-    width: 84px; 
-    height:84px;
-    float:right;
-    margin-right:20px;
-    ;
-}
-
-.tile2
-{
-    position:relative;
-    left:50%;
-    transform: translateX(-50%);
-    width: 90%;
-    height: 120px;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgb(17, 199, 93) 0%, rgb(3, 237, 61) 0%, rgb(6, 167, 97) 92%);
-    border-radius: 20px;
-    margin-top: 4px;
-}
-
-.tile2Header
-{
-    font-size: 24px;
-    padding-left: 30px;
-    padding-top: 18px;
-    color:white;
-}
-
-.tile2subHeading
-{
-    font-size: 14px;
-    padding-left: 30px;
-    margin-top: 10px;
-    color:white;
-}
-
-.tile2Image
-{
-    display:inline-block; 
-    width: 84px; 
-    height:84px;
-    float:right;
-    margin-right:20px;
-    ;
 }
 
 .tile3

@@ -6,16 +6,18 @@
      class = "image1">
 </a>
 
-<img src = "search.svg"
-     class = "image2">
-
 <a href = "/forum">
 <img src = "forum.svg"
-     class = "image3">
+     class = "image2">
 </a>
 
 <a href="/profile">
     <img src = "profile.svg"
+    class = "image3">
+</a>
+
+<a href="/logout">
+    <img src = "logout.svg"
     class = "image4">
 </a>
 
@@ -38,37 +40,38 @@
 
     .image1
     {
-        width:32px; 
-        height:32px; 
+        width:45px; 
+        height:45px; 
         display:inline-block;
-        margin-right:50px; 
-        margin-top:20px;
+        margin-right:20px; 
+        margin-top:10px;
     }
 
     .image2
     {
-        width:32px; 
-        height:32px; 
+        width:55px; 
+        height:55px; 
         display:inline-block;
-        margin-right:50px; 
-        margin-top:20px;
+        margin-right:20px; 
+        margin-top:10px;
     }
 
     .image3
     {
-        width:32px; 
-        height:32px; 
+        width:45px; 
+        height:45px; 
         display:inline-block;
-        margin-right:50px; 
-        margin-top:20px;
+        margin-right:20px; 
+        margin-top:10px;
     }
 
     .image4
     {
-        width:32px; 
-        height:32px; 
+        width:45px; 
+        height:45px; 
         display:inline-block;
-        margin-right:50px; 
-        margin-top:20px;
+        margin-right:5px; 
+        margin-top:10px;
     }
+
 </style>

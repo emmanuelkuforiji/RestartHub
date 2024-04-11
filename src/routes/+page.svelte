@@ -165,35 +165,33 @@
 
     // Function to handle user login
     async function login() {
-        // Fetch users from Supabase that match the entered email and password
+    try {
         let getUsers = await supabase
             .from("users")
             .select()
-            .match({email: emailVar, password: passwordVar});
+            .match({email: emailVar.toLowerCase(), password: passwordVar}); // Consider hashing
 
-        // If matching user is found
         if(getUsers.data.length > 0) {
-            // Generate a random session token
             let randomChar = ["DBHS", "EW-D", "Q@&D", "#.EQ"];
-            let token = Math.floor(Math.random() * 900000000) + 100000000;
+            let token = Math.floor(Math.random() * 900000000) + 100000000 + randomChar[Math.floor(Math.random() * 4)];
 
-            // Update user's session token in Supabase
             let setToken = await supabase
                 .from("users")
-                .update({sessionToken: token.toString() + randomChar[Math.floor(Math.random() * 4)]})
-                .match({email: emailVar});
+                .update({sessionToken: token})
+                .match({email: emailVar.toLowerCase()});
 
-            // Store the new session token and email in localStorage
-            localStorage.setItem("token", token.toString() + randomChar[Math.floor(Math.random() * 4)]);
-            localStorage.setItem("email", emailVar);
+            localStorage.setItem("token", token);
+            localStorage.setItem("email", emailVar.toLowerCase());
             
-            // Navigate to the dashboard
             goto("/dashboard");
         } else {
-            // If no matching user is found, indicate login failure
             isLoginFailed = true;
         }
+    } catch (error) {
+        console.error("Login error:", error);
+        isLoginFailed = true;
     }
+}
 
     // Function to navigate to the registration page
     function goToRegister() {
