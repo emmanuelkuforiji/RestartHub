@@ -14,7 +14,7 @@ async function callReed()
     body.append('keywords', "programmer");
     body.append('locationName', "London");
 
-    const response = await fetch("https://www.reed.co.uk/api/1.0/search?", {
+    const response = await fetch("https://www.reed.co.uk/api/1.0/search", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

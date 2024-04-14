@@ -1,6 +1,7 @@
-<!--fix bottom bar on mobile-->
+
 <!--mentorship-->
 <!--job listings-->
+<!--installable pwa-->
 
 
 {#if showModal}
