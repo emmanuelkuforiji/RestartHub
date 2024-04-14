@@ -95,12 +95,9 @@
 
     async function loggingOut() {
 
-        // Clear local storage or cookies that store session information
+        // Clear local storage that stores session information
         localStorage.removeItem("token");
         localStorage.removeItem("email");
-
-        // Call Supabase logout function to invalidate the session on the server side
-        await supabase.auth.signOut();
 
         // Redirect the user to the login page
         goto('/');

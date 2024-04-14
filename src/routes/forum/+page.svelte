@@ -1,9 +1,4 @@
-<!--tidy up bottom bar-->
-<!--delete search icon-->
 <!--fix bottom bar on mobile-->
-
-<!--log out-->
-<!--fix sign in button-->
 <!--mentorship-->
 <!--job listings-->
 
