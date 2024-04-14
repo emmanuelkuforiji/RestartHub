@@ -1,40 +1,55 @@
-<button on:click={callReed}>Click</button>
+<button on:click={function(){fetchJobs(apiKey1)}}>Click</button>
 
 <script>
-let APIKey = "0a9c346a-50a1-45e2-ae92-9e6cebeef36c";
+let apiKey1 = "0a9c346a-50a1-45e2-ae92-9e6cebeef36c";
 
-async function callReed() 
-{
+// Function to fetch jobs for a programmer in London from the Reed API
+async function fetchJobs(apiKey) {
+    const baseUrl = 'https://www.reed.co.uk/api/1.0/search';
+    const keyword = 'programmer';
+    const location = 'london';
 
-  try {
-
-    const body = new URLSearchParams();
-
-
-    body.append('keywords', "programmer");
-    body.append('locationName', "London");
-
-    const response = await fetch("https://www.reed.co.uk/api/1.0/search", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `API-KEY ${APIKey}`
-      },
-      body: body
+    const queryParams = new URLSearchParams({
+        keywords: keyword,
+        locationName: location
     });
 
-    if (!response.ok) {
-      throw new Error(`Failed to initialize transaction: ${response.status}`)
+    const url = `${baseUrl}?${queryParams}`;
+
+    try {
+        const response = await fetch(url, {
+            headers: {
+                Authorization: `Basic ${btoa(apiKey + ':')}` // Encoding apiKey as Basic Auth header
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to fetch jobs. Status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching jobs:', error);
+        return null;
     }
+}
 
-    let responseData = await response.json();
+async function go()
+{
+    // Example usage
+fetchJobs(apiKey)
+    .then(data => {
+        if (data && data.results && data.results.length > 0) {
+            console.log('Jobs found:');
+            data.results.forEach(job => {
+                console.log(`Title: ${job.jobTitle}, Company: ${job.employerName}, Location: ${job.locationName}`);
+            });
+        } else {
+            console.log('No jobs found.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
-    console.log('Transaction initialized successfully ' + responseData);
-    
-
-  } catch (error) {
-    console.error('Error initializing transaction:', error.message);
-    throw error;
-  }
-};
 </script>
