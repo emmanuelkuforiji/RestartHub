@@ -2,7 +2,19 @@
 <p class="uName">Hey, {fname}!</p>
 <br>
 
-<div class="tile3">
+
+<div class="tile2" on:click={goToAboutUs}>
+    <p class="tile2Header">About Us
+        <img 
+        src="about.svg"
+        class="tile2Image">
+    </p>
+    
+    <p class="tile2subHeading">Find out more about us</p>
+   
+</div>
+
+<div class="tile3" on:click={goToJobListings}>
     <p class="tile3Header">Job Listings
         <img 
         src="job-search.svg"
@@ -13,7 +25,7 @@
    
 </div>
 
-<div class="tile4">
+<div class="tile4" on:click={goToMentorship}>
     <p class="tile4Header">Mentorship
         <img 
         src="mentorship.svg"
@@ -24,7 +36,7 @@
    
 </div>
  
-<div class="tile5">
+<div class="tile5" on:click={goToHealthInfo}>
     <p class="tile5Header" >General Health Information
         <img 
         src="health.svg"
@@ -35,7 +47,7 @@
    
 </div>
 
-<div class="tile6">
+<div class="tile6" on:click={goToEducation}>
     <p class="tile6Header">Educational and Training Information
         <img 
         src="education.svg"
@@ -60,6 +72,47 @@
     font-weight: bold;
 }
 
+.tile2
+{
+    position:relative;
+    left:50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 120px;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(17, 199, 93) 0%, rgb(3, 237, 61) 0%, rgb(6, 167, 97) 92%);
+    border-radius: 20px;
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+.tile2Header
+{
+    font-size: 24px;
+    padding-left: 30px;
+    padding-top: 18px;
+    color:white;
+}
+
+.tile2subHeading
+{
+    font-size: 14px;
+    padding-left: 30px;
+    margin-top: 10px;
+    color:white;
+}
+
+.tile2Image
+{
+    display:inline-block; 
+    width: 84px; 
+    height:84px;
+    float:right;
+    margin-right:20px;
+    ;
+}
+
+
 .tile3
 {
     position:relative;
@@ -71,6 +124,7 @@
     background: linear-gradient(90deg, rgb(239, 111, 173) 0%, hsl(325, 53%, 75%) 0%, rgb(225, 3, 166) 92%);
     border-radius: 20px;
     margin-top: 4px;
+    cursor: pointer;
 }
 
 .tile3Header
@@ -110,6 +164,7 @@
     background: linear-gradient(90deg, rgb(141, 85, 179) 0%, rgb(197, 158, 225) 0%, rgb(154, 9, 202) 92%);
     border-radius: 20px;
     margin-top: 4px;
+    cursor: pointer;
 }
 
 .tile4Header
@@ -149,6 +204,7 @@
     background: linear-gradient(90deg, rgb(220, 90, 90) 0%, rgb(227, 169, 169) 0%, rgb(231, 8, 8) 92%);
     border-radius: 20px;
     margin-top: 4px;
+    cursor: pointer;
 }
 
 .tile5Header
@@ -188,7 +244,8 @@
     background: linear-gradient(90deg, rgb(218, 126, 76) 0%, rgb(240, 209, 163) 0%, rgb(217, 133, 5) 92%);
     border-radius: 20px;
     margin-top: 4px;
-    margin-bottom: 80px;
+    margin-bottom: 90px;
+    cursor: pointer;
 }
 
 .tile6Header
@@ -219,6 +276,28 @@
 </style>
 
 <script>
+
+function goToAboutUs() {
+    goto('/about_us'); 
+}
+
+function goToJobListings() {
+    goto('/testreed'); 
+}
+
+function goToMentorship() {
+    goto('/mentorship'); 
+}
+
+function goToHealthInfo() {
+    goto('/general_health_information'); 
+}
+
+function goToEducation() {
+    goto('/educational_and_training_information'); 
+}
+
+
     import BottomBar from "$lib/BottomBar.svelte"
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
