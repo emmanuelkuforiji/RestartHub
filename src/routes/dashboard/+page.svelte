@@ -2,7 +2,6 @@
 <p class="uName">Hey, {fname}!</p>
 <br>
 
-
 <div class="tile2" on:click={goToAboutUs}>
     <p class="tile2Header">About Us
         <img 
@@ -58,10 +57,10 @@
    
 </div>
 
+
 <BottomBar />
 
 <style>
-
 .uName
 {
     position:relative;
