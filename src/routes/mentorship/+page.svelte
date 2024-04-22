@@ -1,67 +1,110 @@
 <BottomBar />
 
-<button on:click={function(){        
+<button class="btn btn-solid-primary" on:click={function(){        
     findMentor = false; 
     becomeMentorBool = true;
     listSkills();}}>Become a Mentor</button>
 <br>
-<button on:click={function(){        
+<button class="btn btn-solid-secondary" on:click={function(){        
     findMentor = true; 
     becomeMentorBool = false;
     listSkills();}}>Search for a Mentor</button>
 
 {#if becomeMentorBool}
-<div 
-style="position:relative; height:400px; width:600px; max-width:98%; 
-background-color: lightgrey; left:50%; transform:translateX(-50%);
-padding: 20px 20px 20px 20px">
+<div class="one">
 
-<p>Become a mentor</p>
-<br><br>
+<p class="bmHeading">Become a mentor</p>
+<br>
+<p class="text1">Pick up to five skills that you excel in and would like to
+    help a mentee with.
+</p>
+<br>
 <select style="width:200px" bind:value={currentlyselectedskill}>
 {#each allskills as s}
 <option value="{s.skilltype}">{s.skilltype}</option>
 {/each}
 </select>
 
-<button on:click={addSkill}>Add</button>
+<button class="btn btn-primary" on:click={addSkill}>Add</button>
 <br><br>
 {#each currentSkills as a}
-<span class="badge badge-primary">{a.currentskill}</span>
+<span class="btn btn-secondary">{a.currentskill}</span>
 {/each}
 <br><br>
-<button on:click={saveMentor}>Save</button>
+<button class="btn btn-primary" on:click={saveMentor}>Save</button>
 </div>
 {/if}
 
 {#if findMentor}
-<div 
-style="position:relative; height:400px; width:600px; max-width:98%; 
-background-color: lightgrey; left:50%; transform:translateX(-50%);
-padding: 20px 20px 20px 20px">
+<div class="two">
 
-<p>Find a mentor</p>
-<br><br>
+<p class="bmHeading">Find a mentor</p>
+<br>
+<p class="text1">Pick up to five skills that you would like a mentor
+    to help you improve.
+</p>
+<br>
 <select style="width:200px" bind:value={currentlyselectedskill}>
 {#each allskills as s}
 <option value="{s.skilltype}">{s.skilltype}</option>
 {/each}
 </select>
 
-<button on:click={addSkill}>Add</button>
+<button class="btn btn-primary" on:click={addSkill}>Add</button>
 <br><br>
 {#each currentSkills as a}
-<span class="badge badge-primary">{a.currentskill}</span>
+<span class="btn btn-error">{a.currentskill}</span>
 {/each}
 <br><br>
-<button on:click={findMentorFunc}>Search</button>
+<button class="btn btn-primary" on:click={findMentorFunc}>Search</button>
 </div>
 {/if}
 
 {#each eligibleMentors as i}
-<p>{i.name}</p>
-<p><a href="mailto:{i.email}">{i.email}</a></p>
+<p>Contact {i.name} via:</p>
+<p class="text4"><a href="mailto:{i.email}">{i.email}</a></p>
 {/each}
+
+
+<style>
+    .one{
+        position:relative; 
+        height:420px; 
+        width:600px; 
+        max-width:98%; 
+        background-color:  #1F2833;
+        left:50%; 
+        transform:translateX(-50%);
+        padding: 20px 20px 20px 20px;
+    }
+
+    .bmHeading{
+        font-weight: bold;
+        font-size: 24px;
+        color: white;
+    }
+    .text1{
+        color: white;
+    }
+
+    .two{
+        position:relative; 
+        height:420px; 
+        width:600px; 
+        max-width:98%; 
+        background-color: #1F2833;
+ 
+        left:50%; 
+        transform:translateX(-50%);
+        padding: 20px 20px 20px 20px;
+    }
+
+    .text4{
+        color: blue;
+        font-style: underline;
+    }
+
+</style>
 
 <script>
 
