@@ -6,10 +6,8 @@ async function dosomething()
     const versionNumber = '1.0';
 const keywords = 'accountant';
 const locationName = 'london';
-const employerId = '123';
-const distanceFromLocation = '15';
 
-const url = `https://www.reed.co.uk/api/${versionNumber}/search?keywords=${keywords}&locationName=${locationName}&employerId=${employerId}&distanceFromLocation=${distanceFromLocation}`;
+const url = `https://www.reed.co.uk/api/${versionNumber}/search?keywords=${keywords}&locationName=${locationName}`;
 
 fetch(url, {
   method: 'GET',
