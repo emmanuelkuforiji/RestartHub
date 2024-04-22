@@ -28,7 +28,7 @@
 <button class="btn btn-primary" on:click={addSkill}>Add</button>
 <br><br>
 {#each currentSkills as a}
-<span class="btn btn-secondary">{a.currentskill}</span>
+<span class="btn btn-secondary" style="margin-right:10px; margin-top:10px;">{a.currentskill}</span>
 {/each}
 <br><br>
 <button class="btn btn-primary" on:click={saveMentor}>Save</button>
@@ -53,7 +53,7 @@
 <button class="btn btn-primary" on:click={addSkill}>Add</button>
 <br><br>
 {#each currentSkills as a}
-<span class="btn btn-error">{a.currentskill}</span>
+<span class="btn btn-error" style="margin-right:10px; margin-top:10px;">{a.currentskill}</span>
 {/each}
 <br><br>
 <button class="btn btn-primary" on:click={findMentorFunc}>Search</button>
@@ -252,8 +252,11 @@
             selectskills.push(currentSkills[i].currentskill)
             }
 
+            let collectUsernames = [];
+
         for(let i = 0; i < findSkills.data.length; i++)
         {
+            
             arrayofskills = [];
 
             arrayofskills = findSkills.data[i].skills.split(",")
@@ -264,6 +267,12 @@
 
             for(let a = 0; a < arrayofskills.length; a++)
             {
+                if(collectUsernames.includes(findSkills.data[i].username))
+            {
+                continue;
+            }
+            collectUsernames.push(findSkills.data[i].username)
+
                 if(selectskills.includes(arrayofskills[a]))
                 {
                     eligibleMentors = [

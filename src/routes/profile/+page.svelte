@@ -22,6 +22,9 @@
     <div class="form-action">
         <button on:click={saveProfile}>Save</button>
     </div>
+    <div class="btn btn-error">
+        <button on:click={delAccount}>Delete</button>
+    </div>
 </div>
 
 <style>
@@ -133,6 +136,7 @@
     let surnameVar = "";
     let passwordVar = "";
     let confirmPasswordVar = "";
+    let UID;
 
 
     let fname = "";
@@ -166,6 +170,7 @@
                 .match({email: localStorage.getItem("email")})
 
                 fname = getFirstName.data[0].FirstName;
+                UID = getFirstName.data[0].username;
 
             } else
             {
@@ -239,5 +244,15 @@
                     alert("You have successfully updated your profile");
                 }
         }
+    }
+
+    async function delAccount()
+    {
+        let delAccount = await supabase
+        .from("users")
+        .delete()
+        .match({username: UID})
+
+        goto("/");
     }
     </script>
