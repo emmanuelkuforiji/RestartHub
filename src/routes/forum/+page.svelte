@@ -358,12 +358,14 @@ let commentsArray = [];
 
 async function fetchComments(UID)
 {
-
+    showComments = false;
+    commentsArray = [];
     let getComments = await supabase
     .from("comments")
     .select()
     .match({postID: UID})
     .order('created_at', {ascending: false})
+   
 
     for(let i = 0; i < getComments.data.length; i++)
     {
@@ -371,7 +373,7 @@ async function fetchComments(UID)
         .from("users")
         .select()
         .match({id: getComments.data[i].userID})
-
+        
         commentsArray.push(
         {
             "postID": getComments.data[i].postID,
