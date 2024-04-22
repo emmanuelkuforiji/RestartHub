@@ -1,20 +1,36 @@
 <script>
 async function dosomething()
 {
-    const REED_JOBS_API_KEY = "0a9c346a-50a1-45e2-ae92-9e6cebeef36c";
-const REED_JOBS_API_URL = "https://www.reed.co.uk/api/1.0/search?";
+    const apiKey = "0a9c346a-50a1-45e2-ae92-9e6cebeef36c";
 
-const JOB_LOCATION = "London";
-const JOB_KEYWORDS = "developer";
+    const versionNumber = '1.0';
+const keywords = 'accountant';
+const locationName = 'london';
+const employerId = '123';
+const distanceFromLocation = '15';
 
-fetch(`${REED_JOBS_API_URL}keywords=${JOB_KEYWORDS}&locationName=${JOB_LOCATION}&resultsToTake=10&apiKey=${REED_JOBS_API_KEY}`)
- .then(response => response.json())
- .then(data => {
-  console.log(data.results);
- })
- .catch(error => {
-  console.error(error);
- });
+const url = `https://www.reed.co.uk/api/${versionNumber}/search?keywords=${keywords}&locationName=${locationName}&employerId=${employerId}&distanceFromLocation=${distanceFromLocation}`;
+
+fetch(url, {
+  method: 'GET',
+  headers: {
+    'Authorization': `Basic ${btoa(apiKey + ':')}` // Basic Authentication
+  }
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then(data => {
+  // Handle the response data here
+  console.log(data);
+})
+.catch(error => {
+  // Handle errors here
+  console.error('There was a problem with the fetch operation:', error);
+});
 }
 
 </script>
