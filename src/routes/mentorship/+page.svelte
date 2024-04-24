@@ -1,108 +1,152 @@
 <BottomBar />
 
-<button class="btn btn-solid-primary" on:click={function(){        
+<button class="btn btn-solid-primary" on:click={() => {        
     findMentor = false; 
     becomeMentorBool = true;
     listSkills();}}>Become a Mentor</button>
 <br>
-<button class="btn btn-solid-secondary" on:click={function(){        
+<button class="btn btn-solid-secondary" on:click={() => {        
     findMentor = true; 
     becomeMentorBool = false;
     listSkills();}}>Search for a Mentor</button>
 
 {#if becomeMentorBool}
-<div class="one">
-
-<p class="bmHeading">Become a mentor</p>
-<br>
-<p class="text1">Pick up to five skills that you excel in and would like to
-    help a mentee with.
-</p>
-<br>
-<select style="width:200px" bind:value={currentlyselectedskill}>
-{#each allskills as s}
-<option value="{s.skilltype}">{s.skilltype}</option>
+<div class="mentorship-container">
+    <p class="bmHeading">Become a mentor</p>
+    <p class="text1">Pick up to five skills that you excel in and would like to help a mentee with.</p>
+    <div class="controls">
+        <select style="width:200px; display:inline-block;" bind:value={currentlyselectedskill}>
+            {#each allskills as s}
+                <option value="{s.skilltype}">{s.skilltype}</option>
+            {/each}
+        </select>
+        <button class="btn btn-primary" on:click={addSkill}>Add</button>
+        <button class="btn {editMode ? 'btn-warning' : 'btn-secondary'}" on:click={toggleEditMode}>
+            {#if editMode}Done{:else}Edit{/if}
+        </button>
+    </div>
+    <div class="skill-set">
+        {#each currentSkills as a}
+    <button 
+        class="skill-button {selectedSkillsForRemoval.has(a.currentskill) ? 'selected' : ''}"
+        on:click={() => toggleSkillSelection(a.currentskill)}>
+        {a.currentskill}
+    </button>
 {/each}
-</select>
-
-<button class="btn btn-primary" on:click={addSkill}>Add</button>
-<br><br>
-{#each currentSkills as a}
-<span class="btn btn-secondary" style="margin-right:10px; margin-top:10px;">{a.currentskill}</span>
-{/each}
-<br><br>
-<button class="btn btn-primary" on:click={saveMentor}>Save</button>
+    </div>
+    <div class="action-buttons">
+        {#if editMode}
+            <button class="btn btn-danger" on:click={removeSelectedSkills}>Remove Selected</button>
+        {/if}
+        <button class="btn btn-primary" on:click={saveMentor}>Save</button>
+    </div>
 </div>
 {/if}
 
 {#if findMentor}
-<div class="two">
-
-<p class="bmHeading">Find a mentor</p>
-<br>
-<p class="text1">Pick up to five skills that you would like a mentor
-    to help you improve.
-</p>
-<br>
-<select style="width:200px" bind:value={currentlyselectedskill}>
-{#each allskills as s}
-<option value="{s.skilltype}">{s.skilltype}</option>
-{/each}
-</select>
-
-<button class="btn btn-primary" on:click={addSkill}>Add</button>
-<br><br>
-{#each currentSkills as a}
-<span class="btn btn-error" style="margin-right:10px; margin-top:10px;">{a.currentskill}</span>
-{/each}
-<br><br>
-<button class="btn btn-primary" on:click={findMentorFunc}>Search</button>
+<div class="mentorship-container">
+    <p class="bmHeading">Find a mentor</p>
+    <p class="text1">Pick up to five skills that you would like a mentor to help you improve.</p>
+    <div class="controls">
+        <select style="width:200px; display:inline-block;" bind:value={currentlyselectedskill}>
+            {#each allskills as s}
+                <option value="{s.skilltype}">{s.skilltype}</option>
+            {/each}
+        </select>
+        <button class="btn btn-primary" on:click={addSkill}>Add</button>
+        <button class="btn {editMode ? 'btn-warning' : 'btn-secondary'}" on:click={toggleEditMode}>
+            {#if editMode}Done{:else}Edit{/if}
+        </button>
+    </div>
+    <div class="skill-set">
+        {#each currentSkills as a}
+            <button 
+                class="skill-button {editMode && selectedSkillsForRemoval.has(a.currentskill) ? 'selected' : ''}"
+                on:click={editMode ? () => toggleSkillSelection(a.currentskill) : null}
+            >
+                {a.currentskill}
+            </button>
+        {/each}
+    </div>
+    <div class="action-buttons">
+        {#if editMode}
+            <button class="btn btn-danger" on:click={removeSelectedSkills}>Remove Selected</button>
+        {/if}
+        <button class="btn btn-primary" on:click={findMentorFunc}>Search</button>
+    </div>
 </div>
-{/if}
+    {#if searchPerformed}
+        {#if eligibleMentors.length > 0}
+            {#each eligibleMentors as i}
+                <p>{i.first} may be a suitable mentor for you. Contact them via:</p>
+                <p class="text4"><a href="mailto:{i.email}">{i.email}</a></p>
+            {/each}
+        {:else}
+            <p>Sorry, there are no mentors that can help you with these skills at the moment. Please try again later.</p>
+        {/if}
+    {/if}
 
-{#each eligibleMentors as i}
-<p>Contact {i.name} via:</p>
-<p class="text4"><a href="mailto:{i.email}">{i.email}</a></p>
-{/each}
+{/if}
 
 
 <style>
-    .one{
-        position:relative; 
-        height:420px; 
-        width:600px; 
-        max-width:98%; 
-        background-color:  #1F2833;
-        left:50%; 
-        transform:translateX(-50%);
-        padding: 20px 20px 20px 20px;
+    .mentorship-container {
+    position:relative; 
+    width:600px; 
+    max-width:98%; 
+    background-color:  #1F2833;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
     }
 
-    .bmHeading{
+    .bmHeading {
         font-weight: bold;
         font-size: 24px;
         color: white;
     }
-    .text1{
+
+    .text1 {
         color: white;
     }
 
-    .two{
-        position:relative; 
-        height:420px; 
-        width:600px; 
-        max-width:98%; 
-        background-color: #1F2833;
- 
-        left:50%; 
-        transform:translateX(-50%);
-        padding: 20px 20px 20px 20px;
-    }
-
-    .text4{
+    .text4 {
         color: blue;
         font-style: underline;
     }
+
+    .controls, .skill-set, .action-buttons {
+        margin-bottom: 15px;
+    }
+
+    .skill-button {
+        padding: 6px 12px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border: 1px solid transparent;
+        border-radius: 20px;
+        background-color: #2C3E50;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s, border 0.3s;
+    }
+
+    .skill-button.editable:hover {
+        background-color: #34495E;
+    }
+
+    .skill-button.selected {
+        background-color: #ECC94B; 
+        border-color: #ECC94B;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
 
 </style>
 
@@ -122,6 +166,10 @@
     let becomeMentorBool = false;
     let findMentor = false;
     let currentlyselectedskill = "";
+    let searchPerformed = false;
+    let editMode = false;
+    let selectedSkillsForRemoval = new Set();
+
 
     onMount(()=>
     {
@@ -231,12 +279,14 @@
             .from("users")
             .update({skills: listofskills})
             .match({username: username})
+            location.reload();
     }
 
     let eligibleMentors = [];
 
     async function findMentorFunc()
     {
+        searchPerformed = true;
         let findSkills = await supabase
             .from("users")
             .select()
@@ -273,23 +323,56 @@
             }
             collectUsernames.push(findSkills.data[i].username)
 
+            let collectFnames = [];
+
+            for(let a = 0; a < arrayofskills.length; a++)
+            {
+                if(collectFnames.includes(findSkills.data[i].FirstName))
+            {
+                continue;
+            }
+            collectFnames.push(findSkills.data[i].FirstName)
+
                 if(selectskills.includes(arrayofskills[a]))
                 {
                     eligibleMentors = [
                         ...eligibleMentors,
                         {
                             "name" : findSkills.data[i].username,
-                            "email" : findSkills.data[i].email
+                            "email" : findSkills.data[i].email,
+                            "first" : findSkills.data[i].FirstName
                         }
                     ];
                 } else
                 {
-                    console.log("false")
+                   console.log("false");
                 }
             }
         }
 
-        
+    }  
         
     }
+
+    function toggleEditMode() {
+        editMode = !editMode;
+        if (!editMode) {
+            selectedSkillsForRemoval.clear();
+        }
+    }
+
+    function toggleSkillSelection(skill) {
+    if (selectedSkillsForRemoval.has(skill)) {
+        selectedSkillsForRemoval.delete(skill);
+    } else {
+        selectedSkillsForRemoval.add(skill);
+    }
+    }
+
+    function removeSelectedSkills() {
+        currentSkills = currentSkills.filter(skill => !selectedSkillsForRemoval.has(skill.currentskill));
+        selectedSkillsForRemoval.clear(); 
+        editMode = false; 
+    }
+
 </script>

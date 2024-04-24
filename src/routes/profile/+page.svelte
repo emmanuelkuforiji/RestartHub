@@ -1,6 +1,3 @@
-<!--text field for first name, l name, password, confirm password-->
-<!--grab that from supabase and populate the fields-->
-<!--save btn that writes back the changes-->
 <p class="uName">Your Profile</p>
 <div class="form-group">
     <div class="form-field">
@@ -23,9 +20,10 @@
         <button on:click={saveProfile}>Save</button>
     </div>
     <div class="btn btn-error">
-        <button on:click={delAccount}>Delete</button>
+        <button on:click={delAcc}>Delete Account</button>
     </div>
 </div>
+
 
 <style>
 
@@ -58,7 +56,7 @@
         flex-direction: column;
         gap: 6px;
     }
-    
+
     .header h1 {
         text-align: center;
         font-size: 3rem;
@@ -139,7 +137,7 @@
     let UID;
 
 
-    let fname = "";
+    // let fname = "";
 
     onMount(()=>
     {
@@ -246,13 +244,8 @@
         }
     }
 
-    async function delAccount()
-    {
-        let delAccount = await supabase
-        .from("users")
-        .delete()
-        .match({username: UID})
-
-        goto("/");
+    async function delAcc() {
+        goto('/delete');
     }
+
     </script>

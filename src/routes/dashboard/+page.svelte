@@ -281,7 +281,7 @@ function goToAboutUs() {
 }
 
 function goToJobListings() {
-    goto('/testreed'); 
+    goto('/jobs'); 
 }
 
 function goToMentorship() {
