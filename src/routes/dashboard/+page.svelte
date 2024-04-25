@@ -42,7 +42,7 @@
         class="tile5Image">
     </p>
     
-    <p class="tile5subHeading">General tips and information about maintaing good health.</p>
+    <p class="tile5subHeading">General tips and information about maintaining good health.</p>
    
 </div>
 
@@ -76,8 +76,8 @@
     position:relative;
     left:50%;
     transform: translateX(-50%);
-    width: 90%;
-    height: 120px;
+    width: 98%;
+    height: 150px;
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgb(17, 199, 93) 0%, rgb(3, 237, 61) 0%, rgb(6, 167, 97) 92%);
     border-radius: 20px;
@@ -117,8 +117,8 @@
     position:relative;
     left:50%;
     transform: translateX(-50%);
-    width: 90%;
-    height: 120px;
+    width: 98%;
+    height: 150px;
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgb(239, 111, 173) 0%, hsl(325, 53%, 75%) 0%, rgb(225, 3, 166) 92%);
     border-radius: 20px;
@@ -157,8 +157,8 @@
     position:relative;
     left:50%;
     transform: translateX(-50%);
-    width: 90%;
-    height: 120px;
+    width: 98%;
+    height: 150px;
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgb(141, 85, 179) 0%, rgb(197, 158, 225) 0%, rgb(154, 9, 202) 92%);
     border-radius: 20px;
@@ -197,8 +197,8 @@
     position:relative;
     left:50%;
     transform: translateX(-50%);
-    width: 90%;
-    height: 120px;
+    width: 98%;
+    height: 150px;
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgb(220, 90, 90) 0%, rgb(227, 169, 169) 0%, rgb(231, 8, 8) 92%);
     border-radius: 20px;
@@ -237,8 +237,8 @@
     position:relative;
     left:50%;
     transform: translateX(-50%);
-    width: 90%;
-    height: 120px;
+    width: 98%;
+    height: 150px;
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgb(218, 126, 76) 0%, rgb(240, 209, 163) 0%, rgb(217, 133, 5) 92%);
     border-radius: 20px;

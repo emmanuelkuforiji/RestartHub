@@ -27,13 +27,13 @@
                 <input id="passbox" bind:value={passwordVar} placeholder="Type here" type="password" class="input max-w-full">
             </div>
             <div class="forgot-password">
-                <a>Forgot your password?</a>
+                <a on:click={goToForgotPassword} class="sign-up-link">Forgot your password?</a>
             </div>
             <div class="form-action">
                 <button on:click={login} class="max-w-full">Sign in</button>
             </div>
             <div class="sign-up">
-                <a on:click={goToRegister} href="javascript:void(0);" class="sign-up-link">Don't have an account yet? Sign up.</a>
+                <a on:click={goToRegister} class="sign-up-link">Don't have an account yet? Sign up.</a>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
 #background {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 1000px;
     background: rgb(63,94,251);
     background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 }
@@ -114,6 +114,7 @@
 .sign-up-link:hover {
     background-color: #0056b3; 
     text-decoration: underline; 
+    cursor: pointer;
 }
 
 </style>
@@ -132,6 +133,10 @@
 
     // Variable to track if login has failed
     let isLoginFailed = false;
+
+    // Variables for form inputs
+    let emailVar = "";
+    let passwordVar = "";
 
     // onMount lifecycle hook to check session on component mount
     onMount(() => {
@@ -198,7 +203,9 @@
         goto('/register'); 
     }
 
-    // Variables for form inputs
-    let emailVar = "";
-    let passwordVar = "";
+    // Function to navigate to forgot password page
+    function goToForgotPassword() {
+        goto('/forgot_password')
+    }
+
 </script>

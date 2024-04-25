@@ -30,6 +30,14 @@
                 <label>Confirm Password</label>
                 <input bind:value={confirmPasswordVar} placeholder="Type here" type="password" class="input max-w-full">
             </div>
+            <div class="form-field">
+                <label>Security Question</label>
+                <input bind:value={securityQuestionVar} placeholder="Security Question" type="text" class="input max-w-full">
+            </div>
+            <div class="form-field">
+                <label>Security Answer</label>
+                <input bind:value={securityAnswerVar} placeholder="Security Answer" type="text" class="input max-w-full">
+            </div>
             <div class="form-action">
                 <button on:click={register}>Sign Up</button>
             </div>
@@ -45,7 +53,7 @@
 #background {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 1000px;
     background: rgb(63,94,251);
     background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 }
@@ -139,6 +147,8 @@
     let surnameVar = "";
     let passwordVar = "";
     let confirmPasswordVar = "";
+    let securityQuestionVar = "";
+    let securityAnswerVar = "";
 
     // Utility functions for input validation
 
@@ -166,7 +176,7 @@
     // The main function to handle user registration
     async function register() {
         // Check if all fields are filled
-        if (!emailVar || !firstNameVar || !surnameVar || !passwordVar || !confirmPasswordVar) {
+        if (!emailVar || !firstNameVar || !surnameVar || !passwordVar || !confirmPasswordVar || !securityQuestionVar || !securityAnswerVar) {
             alert("All fields must be filled out.");
             return;
         }
@@ -208,7 +218,7 @@
         const { data, error } = await supabase
             .from("users")
             .insert([
-                { email: emailVar, username: usernameVar, FirstName: firstNameVar, LastName: surnameVar, password: passwordVar },
+                { email: emailVar, username: usernameVar, FirstName: firstNameVar, LastName: surnameVar, password: passwordVar, SecurityQuestion: securityQuestionVar, SecurityAnswer: securityAnswerVar },
             ]);
 
         // Handle response
