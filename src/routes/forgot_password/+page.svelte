@@ -1,3 +1,4 @@
+<div class="background">
 <div class="container">
     <h2 class = "forgot">Forgot Password</h2>
     <input bind:value={email} placeholder="Enter your email" type="email">
@@ -16,8 +17,13 @@
     </div>
     {/if}
 </div>
+</div>
 
 <style>
+    .background{
+        background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
+        height: 700px;
+    }
     .forgot{
         color: #000;
         font-size: 30px;

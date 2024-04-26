@@ -25,8 +25,7 @@
 
 <style>
     .background {
-        background: rgb(63,94,251);
-        background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
         height: 1350px;
     }
   .page-container {
@@ -54,7 +53,7 @@
       justify-content: center;
       gap: 10px;
       margin-bottom: 20px;
-      background: #f2f2f2; 
+      background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
       padding: 10px;
       border-radius: 10px;
   }
@@ -74,7 +73,7 @@
 
   .navigation button:hover, .navigation button.selected {
       background-color: #ddd; 
-      color: #0056b3; 
+      color: blue; 
       border-color: #ccc; 
   }
   .content{
@@ -90,11 +89,11 @@
 
   .resource {
       background: #f9f9f9;
-      border-left: 5px solid #0056b3; /* Accent color to tie it with the headings */
+      border-left: 5px solid black; 
       padding: 15px;
       margin-bottom: 15px;
       border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Soft shadow for depth */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
   }
 
   .resource h3 {

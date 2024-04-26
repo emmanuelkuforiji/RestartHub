@@ -116,7 +116,8 @@
 
 .sign-in-link:hover {
     background-color: #0056b3; 
-    text-decoration: underline; 
+    text-decoration: underline;
+    cursor: pointer; 
 }
 
 
@@ -131,7 +132,7 @@
 }
 
 .form-action button:hover {
-    background-color: green; 
+    background-color: #5ab300; 
 }
 
 </style>

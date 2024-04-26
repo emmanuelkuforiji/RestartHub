@@ -48,14 +48,13 @@
       text-align: center;
       margin: 0;
       font-family: 'Open Sans', sans-serif;
-      background: rgb(63,94,251);
-      background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+      background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
       color: white;
       line-height: 1.6;
     }
   
     h1, h2 {
-      color: turquoise; 
+      color: black; 
       font-weight: bold;
       font-size: 20px;
     }
@@ -65,8 +64,8 @@
     }
   
     button {
-      background-color: #66FCF1;
-      color: #0B0C10;
+      background-color: black;
+      color: white;
       padding: 0.75rem 1.5rem;
       border: none;
       border-radius: 4px;

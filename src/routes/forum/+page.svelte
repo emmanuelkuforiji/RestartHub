@@ -66,12 +66,12 @@
         <br>
         <p class="post-date">{obj.date}</p>
         <p class="post-username">Post by {obj.username}</p>
-        <p style="display: inline-block; color:white;">
+        <p style="display: inline-block; color:black;">
             <img src = "heart.svg" on:click={function(){likePost(obj.uniqueID, obj.likes)}}
             style="cursor:pointer; display:inline-block; width:32px; 
             height:32px;">
             {obj.likes} </p>
-        <p style="display: inline-block; color:white;">
+        <p style="display: inline-block; color:black;">
             <img src="comments.svg"  style="cursor:pointer; display:inline-block; width:32px; height:32px;"
             on:click={function(){curentpostComments = obj.comments; currentlySelectedPost = obj.uniqueID; showModal = true; fetchComments(obj.uniqueID)}}>
             {obj.comments}</p>
@@ -98,8 +98,7 @@ width:300px; top:10px; right:10px;">
 
 <style>
     .background {
-        background: rgb(63,94,251);
-        background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
         height: 100%;
     }
 
@@ -117,7 +116,7 @@ width:300px; top:10px; right:10px;">
     }
     
     .post {
-        border: 5px solid yellow;
+        border: 5px solid black;
         width: 400px;
         max-width: 90%;
         position: relative;
@@ -130,19 +129,19 @@ width:300px; top:10px; right:10px;">
     
     .post-header {
         font-size: 24px;
-        color: white;
+        color: black;
         font-weight: bold;
     }
     
     .post-content {
         font-size: 16px;
-        color: white;
+        color: black;
     }
     
     .post-date, .post-username {
         font-size: 12px;
         font-weight: bold;
-        color: white;
+        color: black;
     }
 
 </style>

@@ -111,8 +111,7 @@
 </div>
 <style>
     .background {
-        background: rgb(63,94,251);
-        background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
         height: 900px;
     }
 
@@ -175,7 +174,7 @@
         margin-top: 10px;
         border: 1px solid transparent;
         border-radius: 20px;
-        background-color: #2C3E50;
+        background-color: #11ca33;
         color: white;
         font-size: 14px;
         cursor: pointer;

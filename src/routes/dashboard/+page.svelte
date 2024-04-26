@@ -64,9 +64,8 @@
 <style>
 
 .background {
-        background: rgb(63,94,251);
-        background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-        height: 950px;
+    background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
+    height: 950px;
 }
 
 .uName
@@ -87,8 +86,7 @@
     transform: translateX(-50%);
     width: 98%;
     height: 150px;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgb(17, 199, 93) 0%, rgb(3, 237, 61) 0%, rgb(6, 167, 97) 92%);
+    background: linear-gradient(to bottom right, #dec0f1 0%, #b79bec 100%);
     border-radius: 20px;
     margin-top: 4px;
     cursor: pointer;
@@ -128,8 +126,7 @@
     transform: translateX(-50%);
     width: 98%;
     height: 150px;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgb(239, 111, 173) 0%, hsl(325, 53%, 75%) 0%, rgb(225, 3, 166) 92%);
+    background: linear-gradient(to bottom right, #e2cfea 0%, #a496ce 100%);
     border-radius: 20px;
     margin-top: 4px;
     cursor: pointer;
@@ -168,8 +165,7 @@
     transform: translateX(-50%);
     width: 98%;
     height: 150px;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgb(141, 85, 179) 0%, rgb(197, 158, 225) 0%, rgb(154, 9, 202) 92%);
+    background: linear-gradient(to bottom right, #b8e0f4 0%, #86c4e7 100%);
     border-radius: 20px;
     margin-top: 4px;
     cursor: pointer;
@@ -208,8 +204,7 @@
     transform: translateX(-50%);
     width: 98%;
     height: 150px;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgb(220, 90, 90) 0%, rgb(227, 169, 169) 0%, rgb(231, 8, 8) 92%);
+    background: linear-gradient(to bottom right, #ffd2a5 0%, #f76b6b 100%);
     border-radius: 20px;
     margin-top: 4px;
     cursor: pointer;

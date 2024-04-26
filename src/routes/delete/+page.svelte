@@ -9,8 +9,7 @@
     
     <style>
     #background{
-        background: rgb(63,94,251);
-        background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
         min-height: 100vh; 
         display: flex;
         flex-direction: column;

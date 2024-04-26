@@ -16,15 +16,14 @@
 
 <style>
     .background {
-        background: rgb(63,94,251);
-        background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
         height: 700px;
     }
     .page-container {
         max-width: 95%;
         margin: 40px auto;
         padding: 40px;
-        background-color: #f4f4f4; 
+        background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%); 
         border-radius: 10px;
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -34,7 +33,7 @@
         display: block;
         margin: 20px auto;
         padding: 10px 20px;
-        background-color: #0056b3;
+        background-color: black;
         color: white;
         border: none;
         border-radius: 5px;
@@ -46,7 +45,7 @@
     }
 
     h1 {
-        color: #0056b3;
+        color: black;
         text-align: center;
         font-size: 2.5em;
         font-weight: bold;
@@ -54,7 +53,7 @@
     }
 
     h2 {
-        color: #0056b3;
+        color: black;
         margin-top: 30px;
         font-size: 1.5em;
         font-weight: bold;
@@ -70,7 +69,7 @@
         background-color: #ffffff;
         margin-bottom: 15px;
         padding: 15px;
-        border-left: 4px solid #0056b3; 
+        border-left: 4px solid black; 
         font-size: 1em; 
     }
 
