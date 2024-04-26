@@ -10,7 +10,7 @@
         class="tile2Image">
     </p>
     
-    <p class="tile2subHeading">Find out more about us</p>
+    <p class="tile2subHeading">Find out more about us.</p>
    
 </div>
 
