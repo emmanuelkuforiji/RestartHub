@@ -1,3 +1,5 @@
+<div class="background">
+    <br>
 <div class="page-container">
     <h1>General Health and Fitness Guide</h1>
     <button on:click={nextTip}>Next Tip</button>
@@ -10,8 +12,14 @@
         </ul>
     </div>
 </div>
+</div>
 
 <style>
+    .background {
+        background: rgb(63,94,251);
+        background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        height: 700px;
+    }
     .page-container {
         max-width: 95%;
         margin: 40px auto;

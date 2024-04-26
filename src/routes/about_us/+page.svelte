@@ -41,7 +41,8 @@
 
   
     .container {
-      max-width: 800px;
+      width: 10000px;
+      max-width: 100%;
       margin: auto;
       padding: 4rem 1rem;
       text-align: center;

@@ -1,4 +1,6 @@
+<div class="background">
 <p class="uName">Your Profile</p>
+<br>
 <div class="form-group">
     <div class="form-field">
         <label>First Name</label>
@@ -23,26 +25,26 @@
         <button on:click={delAcc}>Delete Account</button>
     </div>
 </div>
-
+</div>
 
 <style>
 
-.uName
-{
-    position:relative;
-    margin-top:10px;
-    margin-left:10px;
-    width: 90%;
-    font-size: 24px;
-    font-weight: bold;
-}
+    .background {
 
-    #background {
-        position: absolute;
-        width: 100%;
-        height: 100%;
         background: rgb(63,94,251);
         background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        height: 700px;
+    }
+
+    .uName {
+        position:relative;
+        margin-top:10px;
+        margin-left:10px;
+        width: 90%;
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
     }
     
     .container {

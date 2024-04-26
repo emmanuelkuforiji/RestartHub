@@ -1,3 +1,4 @@
+<div class="background">
 <br>
 <p class="uName">Hey, {fname}!</p>
 <br>
@@ -56,19 +57,27 @@
     <p class="tile6subHeading">Find out about the types of education available to you.</p>
    
 </div>
-
+</div>
 
 <BottomBar />
 
 <style>
+
+.background {
+        background: rgb(63,94,251);
+        background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        height: 950px;
+}
+
 .uName
 {
     position:relative;
     left:50%;
     transform: translateX(-50%);
     width: 90%;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
+    color: white;
 }
 
 .tile2

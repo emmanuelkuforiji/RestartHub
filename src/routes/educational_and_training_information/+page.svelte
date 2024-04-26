@@ -1,3 +1,4 @@
+<div class="background">
 <div class="navigation">
     {#each Object.keys(sections) as section}
         <button 
@@ -20,8 +21,14 @@
         {/each}
     {/if}
 </div>
+</div>
 
 <style>
+    .background {
+        background: rgb(63,94,251);
+        background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        height: 1170px;
+    }
   .page-container {
       max-width: 800px;
       margin: 40px auto;
@@ -76,9 +83,9 @@
     width: 98%;
   }
   .content h2 {
-      color: #0056b3;
+      color: white;
       margin: 20px 5px;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
   }
 
   .resource {

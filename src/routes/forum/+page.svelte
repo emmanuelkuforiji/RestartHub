@@ -1,9 +1,4 @@
-
-<!--mentorship-->
-<!--job listings-->
-<!--installable pwa-->
-
-
+<div class="background">
 {#if showModal}
 <div style="position:fixed; width:100%; height:100%; background-color:rgba(29, 51, 64, 0.9);
  z-index:1">
@@ -52,7 +47,7 @@
 
     <textarea class="textarea textarea-solid max-w-full post-textarea" placeholder="Say something..." rows="3" id="message" bind:value={contentString}></textarea>
 
-    <button class="btn btn-primary post-btn" on:click={submitPost}>Post</button>
+    <button class="btn btn-success post-btn" on:click={submitPost}>Post</button>
 </div>
 <br>
 
@@ -71,12 +66,12 @@
         <br>
         <p class="post-date">{obj.date}</p>
         <p class="post-username">Post by {obj.username}</p>
-        <p style="display: inline-block;">
+        <p style="display: inline-block; color:white;">
             <img src = "heart.svg" on:click={function(){likePost(obj.uniqueID, obj.likes)}}
             style="cursor:pointer; display:inline-block; width:32px; 
             height:32px;">
             {obj.likes} </p>
-        <p style="display: inline-block;">
+        <p style="display: inline-block; color:white;">
             <img src="comments.svg"  style="cursor:pointer; display:inline-block; width:32px; height:32px;"
             on:click={function(){curentpostComments = obj.comments; currentlySelectedPost = obj.uniqueID; showModal = true; fetchComments(obj.uniqueID)}}>
             {obj.comments}</p>
@@ -97,10 +92,17 @@ width:300px; top:10px; right:10px;">
 	</div>
 </div>
 {/if}
+</div>
 
 <BottomBar />
 
 <style>
+    .background {
+        background: rgb(63,94,251);
+        background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        height: 100%;
+    }
+
     #post-container {
         position: relative;
         width: 400px;
@@ -115,7 +117,7 @@ width:300px; top:10px; right:10px;">
     }
     
     .post {
-        border: 5px solid black;
+        border: 5px solid yellow;
         width: 400px;
         max-width: 90%;
         position: relative;
@@ -128,15 +130,19 @@ width:300px; top:10px; right:10px;">
     
     .post-header {
         font-size: 24px;
+        color: white;
+        font-weight: bold;
     }
     
     .post-content {
         font-size: 16px;
+        color: white;
     }
     
     .post-date, .post-username {
         font-size: 12px;
         font-weight: bold;
+        color: white;
     }
 
 </style>
@@ -222,7 +228,7 @@ async function submitPost()
         ispostSuccessful = true;
         setTimeout(() => {
            ispostSuccessful = false; 
-        }, 2000);
+        }, 2500);
 
         headingString = "";
         contentString = "";

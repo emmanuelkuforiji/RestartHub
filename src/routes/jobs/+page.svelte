@@ -1,15 +1,17 @@
+<div class="background">
+    <br>
 <select bind:value={item}>
     <option value="IT">IT</option>
     <option value="Accountant">Accountant</option>
     <option value="Customer Service">Customer Service</option>
     <option value="Waiter">Waiter</option>
 </select>
-<button on:click={showJob}>Submit</button>
+<button class="btn btn-success" on:click={showJob}>Submit</button>
 
 <br><br>
 <section style="position:relative; left:50%; transform:translateX(-50%)">
 
-{#if IT}
+{#if IT_London}
 <div class="card">
 	<div class="card-body">
 		<h2 class="card-header">IT Job - London</h2>
@@ -48,6 +50,19 @@
 {/if}
 <br>
 
+{#if IT_Oxford}
+<div class="card">
+	<div class="card-body">
+		<h2 class="card-header">IT Job - Oxford</h2>
+		<p class="text-content2">Are you looking for a job in this sector?</p>
+		<div class="card-footer">
+			<a href="https://uk.indeed.com/jobs?q=IT&l=oxford&from=searchOnDesktopSerp" target="_blank"><button class="btn-secondary btn">Learn More</button></a>
+		</div>
+	</div>
+</div>
+{/if}
+<br>
+
 {#if waiter}
 <div class="card">
 	<div class="card-body">
@@ -61,6 +76,16 @@
 {/if}
 <br><br><br><br>
 </section>
+</div>
+
+<style>
+    .background {
+        background: rgb(63,94,251);
+        background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        height: 1100px;
+    }
+</style>
+
 <BottomBar />
 <script>
     import BottomBar from "$lib/BottomBar.svelte"
@@ -115,7 +140,8 @@
 
     let item = "";
     let accountant = true;
-    let IT = true;
+    let IT_London = true;
+    let IT_Oxford = true;
     let customerService = true;
     let waiter = true;
    
@@ -123,34 +149,38 @@
     {
         if(item.toLowerCase() == "accountant")
         {
-            IT = false;
+            IT_London = false;
             accountant = true;
             customerService = false;
             waiter = false;
+            IT_Oxford = false;
         }
 
         if(item == "IT")
         {
             accountant = false;
-            IT = true;
+            IT_London = true;
             customerService = false;
             waiter = false;
+            IT_Oxford = true;
         }
 
         if(item == "Customer Service")
         {
             accountant = false;
-            IT = false;
+            IT_London = false;
             customerService = true;
             waiter = false;
+            IT_Oxford = false;
         }
 
-        if(item == "Waitor")
+        if(item == "Waiter")
         {
             accountant = false;
-            IT = false;
+            IT_London = false;
             customerService = false;
             waiter = true;
+            IT_Oxford = false;
         }
     }
 

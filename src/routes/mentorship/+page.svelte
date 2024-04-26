@@ -1,5 +1,11 @@
-<BottomBar />
-
+<div class="background">
+<div class="mentorship-intro">
+    <h2>Mentorship Program</h2>
+    <br>
+    <p>At RestartHub, we believe in the power of shared experience and guidance. Our mentorship program connects ex-offenders with mentors who have navigated similar paths back into society. Whether you're looking to share your expertise or seeking wisdom on your reintegration journey, our platform facilitates these transformative relationships.</p>
+    <p>To become a mentor, select skills that you excel in and are passionate about passing on. To find a mentor, choose areas where you seek growth. Our platform will guide you through the process, making meaningful connections that foster personal and professional development.</p>
+  </div>  
+<br>
 <button class="btn btn-solid-primary" on:click={() => {        
     findMentor = false; 
     becomeMentorBool = true;
@@ -9,6 +15,18 @@
     findMentor = true; 
     becomeMentorBool = false;
     listSkills();}}>Search for a Mentor</button>
+
+{#if showAlert}
+<div class="alert alert-success">
+	<svg width="188" height="188" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M24 4C12.96 4 4 12.96 4 24C4 35.04 12.96 44 24 44C35.04 44 44 35.04 44 24C44 12.96 35.04 4 24 4ZM18.58 32.58L11.4 25.4C10.62 24.62 10.62 23.36 11.4 22.58C12.18 21.8 13.44 21.8 14.22 22.58L20 28.34L33.76 14.58C34.54 13.8 35.8 13.8 36.58 14.58C37.36 15.36 37.36 16.62 36.58 17.4L21.4 32.58C20.64 33.36 19.36 33.36 18.58 32.58Z" fill="#00BA34" />
+	</svg>
+	<div class="flex flex-col">
+		<span>Saved</span>
+		<span class="text-content2">Your skills have been saved</span>
+	</div>
+</div>
+{/if}
 
 {#if becomeMentorBool}
 <div class="mentorship-container">
@@ -62,8 +80,7 @@
         {#each currentSkills as a}
             <button 
                 class="skill-button {editMode && selectedSkillsForRemoval.has(a.currentskill) ? 'selected' : ''}"
-                on:click={editMode ? () => toggleSkillSelection(a.currentskill) : null}
-            >
+                on:click={editMode ? () => toggleSkillSelection(a.currentskill) : null}>
                 {a.currentskill}
             </button>
         {/each}
@@ -78,25 +95,49 @@
     {#if searchPerformed}
         {#if eligibleMentors.length > 0}
             {#each eligibleMentors as i}
-                <p>{i.first} may be a suitable mentor for you. Contact them via:</p>
+                <p class="text5">{i.first} may be a suitable mentor for you. Contact them via:</p>
                 <p class="text4"><a href="mailto:{i.email}">{i.email}</a></p>
             {/each}
         {:else}
-            <p>Sorry, there are no mentors that can help you with these skills at the moment. Please try again later.</p>
+            <p class="text5">Sorry, there are no mentors that can help you with these skills at the moment. Please try again later.</p>
         {/if}
     {/if}
 
 {/if}
 
-
+<div class="space">
+    <br>
+</div>
+</div>
 <style>
+    .background {
+        background: rgb(63,94,251);
+        background: linear-gradient(167deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        height: 900px;
+    }
+
+    .mentorship-intro h2{
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+    }
+
+    .mentorship-intro p{
+        font-size: 14px;
+        width: 95%;
+        margin-left: 8px;
+        color: white;
+    }
+
     .mentorship-container {
-    position:relative; 
-    width:600px; 
+    position: relative; 
+    width:1400px; 
     max-width:98%; 
     background-color:  #1F2833;
     margin: 0 auto;
-    padding: 20px;
+    margin-top: 2px;
+    padding: 10px;
     box-sizing: border-box;
     }
 
@@ -113,16 +154,25 @@
     .text4 {
         color: blue;
         font-style: underline;
+        margin-left: 20px;
+        max-width: 98%;
+    }
+
+    .text5 {
+        margin-left: 10px;
+        width: 98%;
+        color: white;
     }
 
     .controls, .skill-set, .action-buttons {
-        margin-bottom: 15px;
+        margin: 0 auto;
     }
 
     .skill-button {
         padding: 6px 12px;
         margin-right: 10px;
         margin-bottom: 10px;
+        margin-top: 10px;
         border: 1px solid transparent;
         border-radius: 20px;
         background-color: #2C3E50;
@@ -147,8 +197,14 @@
         margin-top: 20px;
     }
 
+    .space {
+        margin-bottom: 80px;
+    }
+
 
 </style>
+
+<BottomBar />
 
 <script>
 
@@ -168,6 +224,7 @@
     let currentlyselectedskill = "";
     let searchPerformed = false;
     let editMode = false;
+    let showAlert = false;
     let selectedSkillsForRemoval = new Set();
 
 
@@ -275,11 +332,23 @@
            listofskills += currentSkills[i].currentskill + ", ";
         }
 
+        becomeMentorBool = false;
+        timeSuccess();
+
         let addSkills = await supabase
             .from("users")
             .update({skills: listofskills})
             .match({username: username})
             location.reload();
+    
+    }
+
+    function timeSuccess() {
+        showAlert = true;
+        setTimeout(() => {
+        showAlert = false; // Hide the alert
+        window.location.reload(); // Reload the page
+    }, 50000); 
     }
 
     let eligibleMentors = [];
