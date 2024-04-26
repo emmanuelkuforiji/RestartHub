@@ -32,7 +32,12 @@
             </div>
             <div class="form-field">
                 <label>Security Question</label>
-                <input bind:value={securityQuestionVar} placeholder="Security Question" type="text" class="input max-w-full">
+                <select bind:value={selectedSecurityQuestion} class="input max-w-full">
+                    <option value="" disabled selected>{selectedSecurityQuestion ? 'Pick a question' : ''}</option>
+                    {#each securityQuestions as question}
+                        <option value={question}>{question}</option>
+                    {/each}
+                </select>
             </div>
             <div class="form-field">
                 <label>Security Answer</label>
@@ -147,8 +152,22 @@
     let surnameVar = "";
     let passwordVar = "";
     let confirmPasswordVar = "";
-    let securityQuestionVar = "";
     let securityAnswerVar = "";
+
+    // Array of predefined security questions
+    const securityQuestions = [
+        'What is your oldest siblings middle name?', 
+        'What was the first concert you attended?', 
+        'What was the make and model of your first car?', 
+        'In what city or town did your parents meet?', 
+        'What was the name of your first childhood friend?', 
+        'What is your grandmothers maiden name?',
+        'What was the name of your favourite school teacher?',
+        'What was your childhood best friends nickname?'  
+    ];
+
+    // Reactive variable to hold the selected security question
+    let selectedSecurityQuestion = "";
 
     // Utility functions for input validation
 
@@ -176,7 +195,7 @@
     // The main function to handle user registration
     async function register() {
         // Check if all fields are filled
-        if (!emailVar || !firstNameVar || !surnameVar || !passwordVar || !confirmPasswordVar || !securityQuestionVar || !securityAnswerVar) {
+        if (!emailVar || !firstNameVar || !surnameVar || !passwordVar || !confirmPasswordVar || !selectedSecurityQuestion || !securityAnswerVar) {
             alert("All fields must be filled out.");
             return;
         }
@@ -214,11 +233,22 @@
             return;
         }
 
+        // Check Security Question has been selected
+        if (!selectedSecurityQuestion) {
+        alert("Please select a security question.");
+        return;
+        }
+
+        // Convert to lowercase
+        emailVar = emailVar.toLocaleLowerCase();
+        usernameVar = usernameVar.toLocaleLowerCase();
+        securityAnswerVar = securityAnswerVar.toLowerCase();
+
         // Insert new user data into the database
         const { data, error } = await supabase
             .from("users")
             .insert([
-                { email: emailVar, username: usernameVar, FirstName: firstNameVar, LastName: surnameVar, password: passwordVar, SecurityQuestion: securityQuestionVar, SecurityAnswer: securityAnswerVar },
+                { email: emailVar, username: usernameVar, FirstName: firstNameVar, LastName: surnameVar, password: passwordVar, SecurityQuestion: selectedSecurityQuestion, SecurityAnswer: securityAnswerVar },
             ]);
 
         // Handle response
