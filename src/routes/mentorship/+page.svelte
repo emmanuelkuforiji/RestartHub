@@ -112,7 +112,7 @@
 <style>
     .background {
         background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
-        height: 900px;
+        height: 1500px;
     }
 
     .mentorship-intro h2{
@@ -123,7 +123,7 @@
     }
 
     .mentorship-intro p{
-        font-size: 14px;
+        font-size: 16px;
         width: 95%;
         margin-left: 8px;
         color: white;

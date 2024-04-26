@@ -115,7 +115,7 @@
 
   .resource p {
       margin: 10px 0 0;
-      color: #666;
+      color: black;
   }
   
    
