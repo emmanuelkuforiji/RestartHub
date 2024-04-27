@@ -1,5 +1,5 @@
 <div class="background">
-<p class="uName">Your Profile</p>
+<p class="uName">Edit Profile</p>
 <br>
 <div class="form-group">
     <div class="form-field">
