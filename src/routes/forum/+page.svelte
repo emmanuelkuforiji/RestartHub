@@ -125,6 +125,7 @@ width:300px; top:10px; right:10px;">
         margin-top: 10px;
         border-radius: 15px;
         padding: 10px;
+        background: white;
     }
     
     .post-header {
