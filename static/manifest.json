@@ -18,8 +18,8 @@
     {
       "purpose": "any",
       "sizes": "192x192",
-      "src": "192_image.png",
-      "type": "image/png"
+      "src": "rh_192.jpeg",
+      "type": "image/jpeg"
     }
   ],
   "orientation": "any",
