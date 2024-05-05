@@ -31,7 +31,8 @@
 
     .background {
         background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
-        height: 740px;
+        height: 750px;
+        margin-top: -10px;
     }
 
     .uName {

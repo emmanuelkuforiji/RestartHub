@@ -22,7 +22,8 @@
 <style>
     .background{
         background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
-        height: 750px;
+        height: 820px;
+        margin-top: -20px;
     }
     .forgot{
         color: #000;
