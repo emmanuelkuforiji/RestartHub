@@ -10,12 +10,12 @@
 <style>
 #background{
     background: linear-gradient(to bottom, #bdc3c7 0%, #2c3e50 100%);
-    min-height: 100vh; 
+    min-height: 130vh; 
     display: flex;
     flex-direction: column;
     justify-content: center; 
     align-items: center; 
-    margin: 0; 
+    margin-top: 0px; 
 }
 .header {
   font-size: 50px;
