@@ -1,6 +1,7 @@
 {
-  "theme_color": "#8936FF",
-  "background_color": "#2EC6FE",
+  "name": "RestartHub",
+  "short_name": "RH",
+  "description": "A app designed to help ex offenders reintegrate into society.",
   "icons": [
     {
       "purpose": "maskable",
@@ -23,11 +24,8 @@
   ],
   "orientation": "any",
   "display": "standalone",
-  "dir": "auto",
-  "lang": "en-GB",
-  "name": "RestartHub",
-  "short_name": "RH",
-  "start_url": "https://restarthubapp.netlify.app",
-  "scope": "https://restarthubapp.netlify.app",
-  "description": "A app designed to help ex offenders reintegrate into society."
+  "start_url": "/",
+  "theme_color": "#8936FF",
+  "background_color": "#2EC6FE",
+  "scope": "/"
 }
