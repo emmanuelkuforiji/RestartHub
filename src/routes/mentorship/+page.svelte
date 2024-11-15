@@ -204,7 +204,7 @@
 
 </style>
 
-<!-- <BottomBar /> -->
+<BottomBar />
 
 <script>
 
