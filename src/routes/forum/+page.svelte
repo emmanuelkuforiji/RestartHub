@@ -220,10 +220,16 @@ async function submitPost()
 {
     showPosts = false;
     //show alert and cancel if heading or content length == 0;
-    let insertPost = await supabase
+    let {insertPost, error} = await supabase
     .from("forum")
     .insert({user: username, heading: headingString, 
         content: contentString})
+
+       if(error != null)
+       {
+            alert("no connection detected!")
+            return;
+       }
 
         ispostSuccessful = true;
         setTimeout(() => {
@@ -344,10 +350,16 @@ async function postComment(UID)
     .match({id: UID})
 
 
-    let insertComment = await supabase
+    let {insertComment, error} = await supabase
     .from("comments")
     .insert({postID: UID, userID: userID, content: commentContent})
     commentContent = "";
+
+    if(error != null)
+       {
+            alert("no connection detected!")
+            return;
+       }
     
 
     commentsArray = [];

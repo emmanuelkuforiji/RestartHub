@@ -11,6 +11,11 @@
      class = "image2">
 </a>
 
+<a href = "/messenger">
+    <img src = "livechat.svg"
+         class = "image5">
+    </a>
+
 <a href="/profile">
     <img src = "profile.svg"
     class = "image3">
@@ -36,6 +41,7 @@
         border-style: solid;
         border-width: 1px;
         bottom:0px;
+        padding-top: 1px;
     }
 
     .image1
@@ -49,8 +55,8 @@
 
     .image2
     {
-        width:55px; 
-        height:55px; 
+        width:45px; 
+        height:45px; 
         display:inline-block;
         margin-right:20px; 
         margin-top:10px;
@@ -71,6 +77,15 @@
         height:45px; 
         display:inline-block;
         margin-right:5px; 
+        margin-top:10px;
+    }
+
+    .image5
+    {
+        width:55px; 
+        height:5%; 
+        display:inline-block;
+        margin-right:20px; 
         margin-top:10px;
     }
 

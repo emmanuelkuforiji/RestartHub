@@ -238,7 +238,7 @@
 
                  // Handle response
                 if (error) {
-                    alert("Profile update error: " + error.message);
+                    alert("No connection detected");
                 } else {
                     alert("You have successfully updated your profile");
                 }

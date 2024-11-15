@@ -96,7 +96,8 @@
         {#if eligibleMentors.length > 0}
             {#each eligibleMentors as i}
                 <p class="text5">{i.first} may be a suitable mentor for you. Contact them via:</p>
-                <p class="text4"><a href="mailto:{i.email}">{i.email}</a></p>
+                <button class="btn" style="margin-left:10px"
+                on:click={function(){createChat(i.email)}}>Live Chat</button>
             {/each}
         {:else}
             <p class="text5">Sorry, there are no mentors that can help you with these skills at the moment. Please try again later.</p>
@@ -203,7 +204,7 @@
 
 </style>
 
-<BottomBar />
+<!-- <BottomBar /> -->
 
 <script>
 
@@ -217,6 +218,7 @@
     let fname;
     let username;
     let userID;
+    let email;
 
     let becomeMentorBool = false;
     let findMentor = false;
@@ -254,6 +256,7 @@
                 .select()
                 .match({email: localStorage.getItem("email")})
 
+                email = getFirstName.data[0].email;
                 fname = getFirstName.data[0].FirstName;
                 username = getFirstName.data[0].username;
                 userID = getFirstName.data[0].id;
@@ -385,6 +388,12 @@
 
             for(let a = 0; a < arrayofskills.length; a++)
             {
+
+                if(username == findSkills.data[i].username)
+                {
+                    continue;
+                }
+
                 if(collectUsernames.includes(findSkills.data[i].username))
             {
                 continue;
@@ -441,6 +450,40 @@
         currentSkills = currentSkills.filter(skill => !selectedSkillsForRemoval.has(skill.currentskill));
         selectedSkillsForRemoval.clear(); 
         editMode = false; 
+    }
+
+    async function createChat(otherUserEmail)
+    {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        const charactersLength = characters.length;
+
+        for (let i = 0; i < 30; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+
+        let findExistingConvo = await supabase
+        .from("conversations")
+        .select()
+        .match({user1: email, user2: otherUserEmail})
+
+        if(findExistingConvo.data.length > 0)
+        {
+            goto("/chatlist");
+            return;
+        }
+
+        let {insertConvo, error} = await supabase
+        .from("conversations")
+        .insert({user1: email, user2: otherUserEmail, chat_id: result})
+
+        if(error != null)
+        {
+            alert("No internet connection detected!");
+        } else
+        {
+            goto("/messenger?chatid=" + result);
+        }
     }
 
 </script>
